@@ -104,9 +104,9 @@ Convenience tags are a rapid way to enter multiple commonly occurring tags. Usin
 Quick | SOAPnote | Description
 --- | --- | ---
 `@ | \[text\] | anonymous textbox 
-`` `@`` =\"*some text*\" | \[text value=\"*some text*\"\] | anonymous textbox with default value *some text*
-`` `@``*fieldname*  | \[text name=\"*fieldname*\"\] | textbox named *fieldname*
-`` `@``*fieldname*=\"*some text*\" | \[text name=\"*fieldname*\" value=\"*some text*\"\] | textbox named *fieldname* with default value *some text*
+`@=\"*some text*\" | \[text value=\"*some text*\"\] | anonymous textbox with default value *some text*
+`@*fieldname*  | \[text name=\"*fieldname*\"\] | textbox named *fieldname*
+`@*fieldname*=\"*some text*\" | \[text name=\"*fieldname*\" value=\"*some text*\"\] | textbox named *fieldname* with default value *some text*
 
 ### Dropdowns
 
