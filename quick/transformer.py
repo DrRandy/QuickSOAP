@@ -70,6 +70,11 @@ class QuickTransformer(Transformer):
         result = '[select value=' + options + ']'
         return result
     
+    def dropdown_named(self, token):
+        name = token[0]
+        result = '<<<' + name + '>>>'
+        return result
+    
     def dropdown_named_options(self, token):
         name, options = token
         result = '<<<' + name + '>>>'
@@ -153,9 +158,16 @@ class TokenListTransformer(Transformer):
     def dropdown_anonymous_options(self, token):
         return lark.visitors.Discard
     
+    def dropdown_named(self, token):
+        name = token[0]
+        firstpass = '[select name="' + name + '"]'
+        secondpass = '[var name="' + name + '"]'
+        result = name+"", {'firstpass': firstpass, 'secondpass': secondpass}
+        return result
+    
     def dropdown_named_options(self, token):
         name, options = token
-        firstpass = '[select name="' + name + '" value=' + default_text + ']'
+        firstpass = '[select name="' + name + '" value=' + options + ']'
         secondpass = '[var name="' + name + '"]'
         result = name+"", {'firstpass': firstpass, 'secondpass': secondpass}
         return result
@@ -188,88 +200,3 @@ class TokenListTransformer(Transformer):
                       
     def caption(self, token):
         return token[0]
-
-"""
-class TokenListTransformer(Transformer):
-
-    def value(self, token):
-        result = dict()
-        for item in token:
-            print(item)
-            name, firstpass = item
-            secondpass = '[var name="' + name + '"]'
-            result["<<<"+name+">>>"] = [firstpass, secondpass]
-        return result
-    
-    def chunk(self, token):
-        result = token
-        if result == []:
-            return lark.visitors.Discard
-        else:
-            return result
-    
-    def textbox_chunk(self, token):
-        result = token
-        return result
-    
-    def dropdown_chunk(self, token):
-        result = token
-        return token
-    
-    def checkbox_chunk(self, token):
-        result = token
-        return token
-    
-    def string_chunk(self, token):
-        return lark.visitors.Discard
-                         
-    def textbox_anonymous(self, token):
-        return lark.visitors.Discard
-    
-    def textbox_anonymous_default_text(self, token):
-        return lark.visitors.Discard
-    
-    def textbox_named(self, token):
-        name = token[0]
-        result = (name+"", '[text name="' + name + '"]')
-        return result
-    
-    def textbox_named_default_text(self, token):
-        name, default_text = token
-        result = (name+"", '[text name="' + name + '" value=' + default_text + ']')
-        return result
-    
-    def dropdown_anonymous_options(self, token):
-        return lark.visitors.Discard
-    
-    def dropdown_named_options(self, token):
-        name, options = token
-        result = (name+"", '[select name="' + name + '" value=' + options+"" + ']')
-        return result
-    
-    def checkbox_anonymous(self, token):
-        return lark.visitors.Discard
-    
-    def checkbox_anonymous_caption(self, token):
-        return lark.visitors.Discard
-    
-    def checkbox_named(self, token):
-        name = token[0]
-        result = (name+"", '[checkbox name="' + name + '"]')
-        return result
-    
-    def checkbox_named_caption(self, token):
-        name, caption = token
-        result = (name+"", '[checkbox name="' + name + '" value=' + caption + ']')
-        return result
-    
-    def default_text(self, token):
-        return lark.visitors.Discard
-                         
-    def dropdown_options(self, token):
-        return lark.visitors.Discard
-                      
-    def caption(self, token):
-        return lark.visitors.Discard
-
-"""
