@@ -13,7 +13,9 @@ quickgrammar = r"""
         | "`@" WORD                     ->  textbox_named 
         | "`@" WORD "=" default_text    ->  textbox_named_default_text
     
-    dropdown_chunk: "`^=" dropdown_options      ->  dropdown_anonymous_options        
+    dropdown_chunk: 
+        | "`^=" dropdown_options                ->  dropdown_anonymous_options        
+        | "`^" WORD                             ->  dropdown_named
         | "`^" WORD "=" dropdown_options        ->  dropdown_named_options
     
     checkbox_chunk: "`+"            ->  checkbox_anonymous
