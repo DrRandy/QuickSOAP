@@ -1,0 +1,7 @@
+
+`@firstname `@lastname is a `@age year-old `@job working at `@location="Allegheny General Hospital".
+
+`@firstname has worked at `@location since `@.
+
+`^HeShe="He|She" is currently `^="working.|on leave." `^HeShe comes in today for a Fitness for Duty evaluation. 
+
