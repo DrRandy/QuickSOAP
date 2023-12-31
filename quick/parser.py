@@ -1,6 +1,7 @@
 from lark import Lark
 from grammar import quickgrammar
 
+token_list = ()
 
 def parse(input):
     """
@@ -8,4 +9,5 @@ def parse(input):
     """
     quickparser = Lark(quickgrammar, start="value")
     result = quickparser.parse(input)
+    print(token_list)
     return result
