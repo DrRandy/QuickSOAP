@@ -47,14 +47,14 @@ QuickSOAP will translate Quick markup into SOAPnote markup as follows:
 
 ### Dropdowns
 
-The Quick tag for a dropdown is `^name` (where name is the name you choose), and for an anonymous dropdown, `^_`. Either of these must be followed by `=` and a quoted list of items where A, B, and C are the items replaced by text that you want in the dropdown. Dropdown items must be included and must be separated by a `|`. Items are not optional, and there must be at least two. 
+The Quick tag for a dropdown is `` `^name`` (where name is the name you choose), or simply `` `^`` for an anonymous dropdown. Either of these must be followed by `=` and a quoted list of items where A, B, and C are the items replaced by text that you want in the dropdown. Dropdown items must be included and must be separated by a `|`. Items are not optional, and there must be at least two. 
 
 QuickSOAP will translate Quick markup into SOAPnote markup as follows:
 
 ```
 # Quick Format
-What is your favorite color? ^color="Red|Yellow|Blue".
-^color is the color of ^_="an apple|autumn leaves|the sky".
+What is your favorite color? `^color="Red|Yellow|Blue".
+`^color is the color of `^="an apple|autumn leaves|the sky".
 ```
 
 ```
@@ -65,14 +65,14 @@ Your favorite color: [select name="color" value="Red|Yellow|Blue".
 
 ### Checkboxes
 
-The Quick tag for a checkbox is `+name` (where name is the name you choose), and for an anonymous checkbox, `+_`. You can give your checkbox caption text by adding `="text to appear with checkbox"`. 
+The Quick tag for a checkbox is `` `+name`` (where name is the name you choose), or simply `` `+`` for an anonymous checkbox. You can give your checkbox caption text by adding `="text to appear with checkbox"`. 
 
 QuickSOAP will translate Quick markup into SOAPnote markup as follows:
 
 ```
 # Quick Format
-Ready to go? +_
-+signature="Document Signed"
+Ready to go? `+
+`+signature="Document Signed"
 ```
 
 ```
@@ -83,17 +83,17 @@ Ready to go? [checkbox]
 
 ### Convenience Tags
 
-Convenience tags are a rapid way to enter multiple commonly occurring tags. Using one convenience tag generates multiple others automatically. For example, using the tag `@fullname` will automatically create tags for `@firstname` and `@lastname`.
+Convenience tags are a rapid way to enter multiple commonly occurring tags. Using one convenience tag generates multiple others automatically. For example, using the tag `` `@fullname`` will automatically create tags for `` `@firstname`` and `` `@lastname``.
 
 #### Textbox Convenience Tags
 
-- `@fullname` expands to text fields for `@firstname` and `@lastname`
-- `@contactinfo` expands to text fields for `@phone` and `@email`
+- `` `@fullname`` expands to text fields for `` `@firstname`` and `` `@lastname``
+- `` `@contactinfo`` expands to text fields for `` `@phone`` and `` `@email``
 
 #### Dropdown Convenience Tags
 
-- `^yesno_`  expands to an anoymous dropdown offering choices yes or no
-- `^yesno_name`  expands to a dropdown named *name* offering choices yes or no
+- `` `^yesno_`` expands to an anoymous dropdown offering choices yes or no
+- `` `^yesno_name`` expands to a dropdown named *name* offering choices yes or no
 
 
 
@@ -103,10 +103,10 @@ Convenience tags are a rapid way to enter multiple commonly occurring tags. Usin
 
 Quick | SOAPnote | Description
 --- | --- | ---
-@_ | \[text\] | anonymous textbox 
-@_=\"*some text*\" | \[text value=\"*some text*\"\] | anonymous textbox with default value *some text*
-@*fieldname*  | \[text name=\"*fieldname*\"\] | textbox named *fieldname*
-@*fieldname*=\"*some text*\" | \[text name=\"*fieldname*\" value=\"*some text*\"\] | textbox named *fieldname* with default value *some text*
+`@ | \[text\] | anonymous textbox 
+`` `@`` =\"*some text*\" | \[text value=\"*some text*\"\] | anonymous textbox with default value *some text*
+`` `@``*fieldname*  | \[text name=\"*fieldname*\"\] | textbox named *fieldname*
+`` `@``*fieldname*=\"*some text*\" | \[text name=\"*fieldname*\" value=\"*some text*\"\] | textbox named *fieldname* with default value *some text*
 
 ### Dropdowns
 
