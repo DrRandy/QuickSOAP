@@ -112,15 +112,15 @@ Quick | SOAPnote | Description
 
 Quick | SOAPnote | Description
 --- | --- | ---
-^_=\"*option A\|option B\|option C*\" | \[select value=\"*option A\|option B\|option C*\"\] | anonymous dropdown with options *option A\|option B\|option C*
-^*fieldname*=\"*option A\|option B\|option C*\" | \[select name=\"*fieldname*\" value=\"*option A\|option B\|option C*\"\] | dropdown named *fieldname* with options *option A\|option B\|option C*
+`^=\"*option A\|option B\|option C*\" | \[select value=\"*option A\|option B\|option C*\"\] | anonymous dropdown with options *option A\|option B\|option C*
+`^*fieldname*=\"*option A\|option B\|option C*\" | \[select name=\"*fieldname*\" value=\"*option A\|option B\|option C*\"\] | dropdown named *fieldname* with options *option A\|option B\|option C*
 
 ### Checkboxes
 
 Quick | SOAPnote | Description
 --- | --- | ---
-+_ | \[text\] | anonymous checkbox 
-+_=\"*some text*\" | \[checkbox value=\"*some text*\"\] | anonymous checkbox with caption *some text*
-+*fieldname*  | \[checkbox name=\"*fieldname*\"\] | checkbox named *fieldname*
-+*fieldname*=\"*some text*\" | \[checkbox name=\"*fieldname*\" value=\"*some text*\"\] | checkbox named *fieldname* with caption *some text*
+`+ | \[text\] | anonymous checkbox 
+`+=\"*some text*\" | \[checkbox value=\"*some text*\"\] | anonymous checkbox with caption *some text*
+`+*fieldname*  | \[checkbox name=\"*fieldname*\"\] | checkbox named *fieldname*
+`+*fieldname*=\"*some text*\" | \[checkbox name=\"*fieldname*\" value=\"*some text*\"\] | checkbox named *fieldname* with caption *some text*
 
