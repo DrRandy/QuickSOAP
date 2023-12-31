@@ -3,8 +3,8 @@ from lark import Transformer
 
 def transform(ast):
     output = QuickTransformer().transform(ast)
-    token_list = TokenListTransformer().transform(ast)
-    return output, token_list
+    # token_list = TokenListTransformer().transform(ast)
+    return output
 
 
 class QuickTransformer(Transformer):
@@ -44,7 +44,7 @@ class QuickTransformer(Transformer):
     
     def textbox_named(self, token):
         name = token[0]
-        result = '<<<' + name + '>>>'
+        result = '[text name="' + name + '"]'
         return result
     
     def textbox_named_default_text(self, token):
@@ -59,7 +59,7 @@ class QuickTransformer(Transformer):
     
     def dropdown_named_options(self, token):
         name, options = token
-        result = '[select name="' + name + '" value=' + options + ']'
+        result = '[text name="' + name + '" value=' + default_text + ']'
         return result
     
     def checkbox_anonymous(self, token):
@@ -94,15 +94,16 @@ class QuickTransformer(Transformer):
         return escaped_string
 
 
-
+"""
 class TokenListTransformer(Transformer):
 
     def value(self, token):
         result = dict()
         for item in token:
+            print(item)
             name, firstpass = item
             secondpass = '[var name="' + name + '"]'
-            result["<<<"+name+">>>"] = (firstpass, secondpass)
+            result["<<<"+name+">>>"] = [firstpass, secondpass]
         return result
     
     def chunk(self, token):
@@ -175,4 +176,5 @@ class TokenListTransformer(Transformer):
                       
     def caption(self, token):
         return lark.visitors.Discard
-    
+
+"""
