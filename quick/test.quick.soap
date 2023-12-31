@@ -1,0 +1,7 @@
+
+[text name="firstname"] [text name="lastname"] is a [text name="age"] year-old [text name="job"] working at [text name="location" value=""Allegheny General Hospital""].
+
+[var name="firstname"] has worked at [var name="location"] since [text].
+
+[select name="HeShe" value="He|She"] is currently [select value="working.|on leave."] [var name="HeShe"] comes in today for a Fitness for Duty evaluation. 
+
