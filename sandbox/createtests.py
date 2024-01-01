@@ -1,7 +1,7 @@
 import csv
 
 csvdatafile = "testdocumentdata.csv"
-outputfilename = "../test/testgeneratedtests.py"
+outputfilename = "../quick/testgeneratedtests.py"
 
 thedictionary = {}
 
@@ -49,7 +49,8 @@ def printdictionary(dictionary):
 
 
 file_template = """import unittest
-import quick, quick.grammar, quick.parser
+import ../quick
+from quick import convert
 
 %s
 
@@ -67,10 +68,7 @@ test_template = """
     def test_%s(self):
         input = "%s"
         output = "%s"
-        test_output = ""
-        the_grammar = quick.grammar.GRAMMAR
-        tree = quick.parser.parse(input)
-        # test_output = tree.transform() # tree transformation goes here
+        test_output = convert(input)
         self.assertEqual(output, test_output, "%s")
 """
 
