@@ -1,6 +1,30 @@
 import lark
 from lark import Transformer
 
+#  
+#  Old Transformation Strategy (in transformer.py)
+#
+#  Perform two transformations. 
+#  The first transformation produces a string (output) which has replaced all the named fields with placeholders.
+#  The second transformation produces a dictionary (token_dict) with an entry for each of the named fields.
+#     Each dictionary entry contains the text for replacing the placeholders, which will be evaluated in two passes.
+#  Use the dictionary to replace the placeholders in the output string, in two passes.
+#     In the first pass, use the dictionary entry ONLY to replace the first occurrence of a named placeholder.
+#         So "blah blah <<<hello>>> blah" will be replaced with "blah blah [text name="hello"] blah".
+#     In the second pass, use the dictionary entry to replace all other occurrences of a named placedholder.
+#         So "whatever <<<hello>>> you say" will be replaced with "whatever [var name="hello"] you say".
+
+#
+#  New transformation strategy (this file, transformer2.py)
+#
+#  Perform 2 transformations.
+#  The first transformation produces a string (output) which has replaced all the named fields with placeholders (same as before).
+#  The second transformation produces a dictionary with an entry for every named field.
+#     Each dictionary entry contains first and second pass text replacements, but also the field's type and 
+#         the field's options as well (if applicable). 
+#     With this information, exceptions can be raised for field name errors (using the same field name for a text and a dropbox, e.g.)
+#
+
 def transform(ast):
     output = QuickTransformer().transform(ast)
     token_dict = TokenListTransformer().transform(ast)
@@ -19,42 +43,48 @@ def insert_tokens(the_string, the_tokens):
         output = output.replace(the_token, the_value['secondpass'])
     return output
     
+# constants
+TYPE_CHECKBOX = "checkbox"
+TYPE_TEXT = "text"
+TYPE_DROPDOWN = "select"
+
+keyTYPE = 'type'
+keyFIRSTPASS = 'firstpass'
+keySECONDPASS = 'secondpass'
+keyOPTIONS = 'options'
 
 
-class UtilityTransformer(Transformer):
-    """ Adds simple utility methods for returning common transformations"""
-
-    def tokenString(self, token):
-        """returns the token as a string"""
+class StringTransformer(Transformer):
+    """ Always returns strings as a default. """
+    def __default__(self, token):
         result = token[0]
         return result
-    
-    def tokenDiscard(self, token):
-        """discards the token"""
-        result = lark.visitors.Discard
-        return result
 
+class QuickTransformer(StringTransformer):
 
-class QuickTransformer(UtilityTransformer):
-
-    def value(self, token):
-        result = "".join(token)
-        return result
+    # def value(self, token):
+    #     result = "".join(token)
+    #     return result
     
-    def chunk(self, token):
-        return self.tokenString(token)
+    # def chunk(self, token):
+    #     result = token[0]
+    #     return result
     
-    def textbox_chunk(self, token):
-        return self.tokenString(token)
+    # def textbox_chunk(self, token):
+    #     result = token[0]
+    #     return result
     
-    def dropdown_chunk(self, token):
-        return self.tokenString(token)
+    # def dropdown_chunk(self, token):
+    #     result = token[0]
+    #     return result
     
-    def checkbox_chunk(self, token):
-        return self.tokenString(token)
+    # def checkbox_chunk(self, token):
+    #     result = token[0]
+    #     return result
     
-    def string_chunk(self, token):
-        return self.tokenString(token)
+    # def string_chunk(self, token):
+    #     result = token[0]
+    #     return result
                          
     def textbox_anonymous(self, token):
         result = '[text]'
@@ -110,16 +140,19 @@ class QuickTransformer(UtilityTransformer):
         return result
     
     def default_text(self, token):
-        return self.tokenString(token)
+        escaped_string = token[0]
+        return escaped_string
                          
     def dropdown_options(self, token):
-        return self.tokenString(token)
+        escaped_string = token[0]
+        return escaped_string   
                       
     def caption(self, token):
-        return self.tokenString(token)
+        escaped_string = token[0]
+        return escaped_string
 
 
-class TokenListTransformer(UtilityTransformer):
+class TokenListTransformer(Transformer):
 
     def value(self, token):
         token_dict = dict()
@@ -133,23 +166,20 @@ class TokenListTransformer(UtilityTransformer):
     def chunk(self, token): 
         return token
 
-    # def textbox_chunk(self, token): 
-    #   not needed, default is to return the token
+    # def textbox_chunk(self, token): # not needed, default is to return the token
 
-    # def dropdown_chunk(self, token): 
-    #   not needed, default is to return the token
+    # def dropdown_chunk(self, token): # not needed, default is to return the token
 
-    # def checkbox_chunk(self, token): 
-    #   not needed, default is to return the token
+    # def checkbox_chunk(self, token): # not needed, default is to return the token
     
     def string_chunk(self, token):
-        return self.tokenDiscard(token)
+        return lark.visitors.Discard
     
     def textbox_anonymous(self, token):
-        return self.tokenDiscard(token)
+        return lark.visitors.Discard 
     
     def textbox_anonymous_default_text(self, token):
-        return self.tokenDiscard(token)
+        return lark.visitors.Discard
     
     def textbox_named(self, token):
         name = token[0]
@@ -166,7 +196,7 @@ class TokenListTransformer(UtilityTransformer):
         return result
     
     def dropdown_anonymous_options(self, token):
-        return self.tokenDiscard(token)
+        return lark.visitors.Discard
     
     def dropdown_named(self, token):
         name = token[0]
@@ -183,10 +213,10 @@ class TokenListTransformer(UtilityTransformer):
         return result
     
     def checkbox_anonymous(self, token):
-        return self.tokenDiscard(token)
+        return lark.visitors.Discard
     
     def checkbox_anonymous_caption(self, token):
-        return self.tokenDiscard(token)
+        return lark.visitors.Discard
     
     def checkbox_named(self, token):
         name = token[0]
@@ -199,14 +229,14 @@ class TokenListTransformer(UtilityTransformer):
         name, caption = token
         firstpass = '[checkbox name="' + name + '" value=' + caption + ']'
         secondpass = '[var name="' + name + '"]'
-        result = name+"", {'firstpass': firstpass, 'secondpass': secondpass}
+        result = name+"", {'type': TYPE_CHECKBOX, 'firstpass': firstpass, 'secondpass': secondpass}
         return result
     
     def default_text(self, token):
-        return self.tokenString(token)
+        return token[0]
                          
     def dropdown_options(self, token):
-        return self.tokenString(token)
+        return token[0]
                       
     def caption(self, token):
-        return self.tokenString(token)
+        return token[0]
