@@ -49,7 +49,7 @@ def printdictionary(dictionary):
 
 
 file_template = """import unittest
-import ../quick
+import quick
 from quick import convert
 
 %s
