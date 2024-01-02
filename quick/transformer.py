@@ -3,6 +3,7 @@ from lark import Transformer
 
 def transform(ast):
     output = QuickTransformer().transform(ast)
+    # print(output)
     token_dict = TokenListTransformer().transform(ast)
     result = insert_tokens(output, token_dict)
     return result
@@ -52,6 +53,11 @@ class QuickTransformer(UtilityTransformer):
     
     def checkbox_chunk(self, token):
         return self.tokenString(token)
+        
+    def condition_chunk(self, thecondition_chunk):
+        " thecondition_chunk is a string token "
+        result = self.tokenString(thecondition_chunk)
+        return result
     
     def string_chunk(self, token):
         return self.tokenString(token)
@@ -109,6 +115,18 @@ class QuickTransformer(UtilityTransformer):
         result = '<<<' + name + '>>>'
         return result
     
+    def condition_start(self, token):
+        " token contains two strings field and conditional expression "
+        # ToDo
+        field, condition  = token
+        result = '[conditional field="' + field + '" condition=' + condition + ']'
+        return result
+    
+    def condition_end(self, token):
+        " token is an anonymous token; just replace it "
+        result = "[/conditional]"
+        return result
+
     def default_text(self, token):
         return self.tokenString(token)
                          
@@ -118,12 +136,18 @@ class QuickTransformer(UtilityTransformer):
     def caption(self, token):
         return self.tokenString(token)
 
+    def condition(self, theCondition):
+        " theCondition is a string token "
+        result = self.tokenString(theCondition)
+        return result
+
 
 class TokenListTransformer(UtilityTransformer):
 
     def value(self, token):
         token_dict = dict()
         for item in token:
+            print(item)
             if not item==[]:
                 the_key, the_value = item[0]
                 if not the_key in token_dict:
@@ -142,6 +166,9 @@ class TokenListTransformer(UtilityTransformer):
     # def checkbox_chunk(self, token): 
     #   not needed, default is to return the token
     
+    def condition_chunk(self, token):
+        return self.tokenDiscard(token)
+
     def string_chunk(self, token):
         return self.tokenDiscard(token)
     
@@ -202,6 +229,12 @@ class TokenListTransformer(UtilityTransformer):
         result = name+"", {'firstpass': firstpass, 'secondpass': secondpass}
         return result
     
+    def condition_start(self, token):
+        return self.tokenDiscard(token)
+    
+    def condition_end(self, token):
+        return self.tokenDiscard(token)
+    
     def default_text(self, token):
         return self.tokenString(token)
                          
@@ -209,4 +242,7 @@ class TokenListTransformer(UtilityTransformer):
         return self.tokenString(token)
                       
     def caption(self, token):
+        return self.tokenString(token)
+                      
+    def condition(self, token):
         return self.tokenString(token)
