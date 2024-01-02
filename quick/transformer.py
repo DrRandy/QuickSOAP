@@ -160,7 +160,7 @@ class TokenListTransformer(UtilityTransformer):
     
     def textbox_named_default_text(self, token):
         name, default_text = token
-        firstpass = '[text name="' + name + '" value="' + default_text + '"]'
+        firstpass = '[text name="' + name + '" value=' + default_text + ']'
         secondpass = '[var name="' + name + '"]'
         result = name+"", {'firstpass': firstpass, 'secondpass': secondpass}
         return result

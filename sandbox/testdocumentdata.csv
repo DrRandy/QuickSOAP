@@ -1,0 +1,15 @@
+Tested Component Class,Tested Component Type,Quick Input,SOAPnote output,Message for failed test
+Textbox,TextboxAnonymous,`@,[text],TextboxAnonymous did not parse correctly
+Textbox,TextboxAnonymousDefaultText,"`@=\""default text\""","[text value=\""default text\""]",TextboxAnonymousDefaultText did not parse correctly
+Textbox,TextboxNamed,`@fieldname,"[text name=\""fieldname\""]",TextboxNamed did not parse correctly
+Textbox,TextboxNamedDefaultText,"`@fieldname=\""default text\""","[text name=\""fieldname\"" value=\""default text\""]",TextboxNamedDefaultText did not parse correctly
+Textbox,TextboxAnonymousPlusBoilerplate,Please enter your name: `@,Please enter your name: [text],TextboxAnonymousPlusBoilerplate did not parse correctly
+Textbox,TextboxAnonymousDefaultTextPlusBoilerplate,"Today is a `@=\""wonderful\"" day!","Today is a [text value=\""wonderful\""] day!",TextboxAnonymousDefaultTextPlusBoilerplate did not parse correctly
+Textbox,TextboxNamedPlusBoilerplate,Your favorite color is `@color.,"Your favorite color is [text name=\""color\""].",TextboxNamedPlusBoilerplate did not parse correctly
+Textbox,TextboxNamedDefaultTextPlusBoilerplate,"Your favorite color is `@color=\""blue\"".","Your favorite color is [text name=\""color\"" value=\""blue\""].",TextboxNamedDefaultTextPlusBoilerplate did not parse correctly
+Dropdown,DropdownAnonymous,"`^=\""option 1|option 2\""","[select value=\""option 1|option 2\""]",DropdownAnonymous did not parse correctly
+Dropdown,DropdownNamed,"`^fieldname=\""option 1|option 2\""","[select name=\""fieldname\"" value=\""option 1|option 2\""]",DropdownNamed did not parse correctly
+Checkbox,CheckboxAnonymous, `+,[checkbox],CheckboxAnonymous did not parse correctly
+Checkbox,CheckboxAnonymousCaption," `+=\""caption for checkbox\""","[checkbox value=\""caption for checkbox\""]",CheckboxAnonymousCaption did not parse correctly
+Checkbox,CheckboxNamed, `+fieldname,"[checkbox name=\""fieldname\""]",CheckboxNamed did not parse correctly
+Checkbox,CheckboxNamedCaption," `+fieldname=\""caption for checkbox\""","[checkbox name=\""fieldname\"" value=\""caption for checkbox\""]",CheckboxNamedCaption did not parse correctly
