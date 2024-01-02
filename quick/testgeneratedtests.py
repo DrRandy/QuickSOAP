@@ -36,7 +36,7 @@ class TestTextbox(unittest.TestCase):
         self.assertEqual(output, test_output, "TextboxAnonymousPlusBoilerplate did not parse correctly")
 
     def test_TextboxAnonymousDefaultTextPlusBoilerplate(self):
-        input =  "Today is a `@=\"wonderful\" day!"
+        input = "Today is a `@=\"wonderful\" day!"
         output = "Today is a [text value=\"wonderful\"] day!"
         test_output = convert(input)
         self.assertEqual(output, test_output, "TextboxAnonymousDefaultTextPlusBoilerplate did not parse correctly")
@@ -92,6 +92,20 @@ class TestCheckbox(unittest.TestCase):
         output = "[checkbox name=\"fieldname\" value=\"caption for checkbox\"]"
         test_output = convert(input)
         self.assertEqual(output, test_output, "CheckboxNamedCaption did not parse correctly")
+
+class TestConditional(unittest.TestCase):
+
+    def test_ConditionalStart(self):
+        input = "`?_cleared:\"(cleared).is('okay to start')\""
+        output = "[conditional field=\"cleared\" condition=\"(cleared).is('okay to start')\"]"
+        test_output = convert(input)
+        self.assertEqual(output, test_output, "ConditionalStart did not parse correctly")
+
+    def test_ConditionalEnd(self):
+        input = "`_?"
+        output = "[/conditional]"
+        test_output = convert(input)
+        self.assertEqual(output, test_output, "ConditionalEnd did not parse correctly")
 
 
 if __name__=="__main__":

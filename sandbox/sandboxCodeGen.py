@@ -80,11 +80,11 @@ def gettestdata(csvfile):
                 else:
                     outputline = theOutput + "\n\treturn result"
                     if theOutput=="STRING":
-                        outputline = "result = self.tokenToString(%s)\n\treturn result" % theArguments
+                        outputline = "result = self.tokenString(%s)\n\treturn result" % theArguments
                     if theOutput=="DISCARD":
                         outputline = "result = lark.visitors.Discard\n\treturn result"
                     if theOutput=="PASS":
-                        outputline = "# ToDo\n\tnot yet implemented\n\tpass"
+                        outputline = "# ToDo\n\t#not yet implemented\n\tpass"
                     thetransformerentry = (theEBNF, theArguments, theComment, outputline)
                     transformeroutput = transformeroutput + transformer_output_line_template % thetransformerentry
 

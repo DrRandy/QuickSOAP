@@ -1,13 +1,17 @@
 Grammar Element,EBNF Definition,Transformer1 Arguments,Transformation1 Comment,Transformer1 Output
 value,chunk+,theChunks,theChunks is a list of strings,"result = """".join(chunkList)"
-chunk,textbox_chunk | dropdown_chunk | checkbox_chunk | string_chunk ,theChunk,theChunk is a string token,STRING
+chunk,textbox_chunk | dropdown_chunk | checkbox_chunk | condition_chunk | string_chunk ,theChunk,theChunk is a string token,STRING
 textbox_chunk,"""`@"" -> textbox_anonymous | ""`@="" default_text -> textbox_anonymous_default_text | ""`@"" WORD -> textbox_named| ""`@"" WORD ""="" default_text -> textbox_named_default_text",thetextbox_chunk,thetextbox_chunk is a string token,STRING
 dropdown_chunk,"""`^="" dropdown_options -> dropdown_anonymous_options | ""`^"" WORD -> dropdown_named | ""`^"" WORD ""="" dropdown_options -> dropdown_named_options",thedropdown_chunk,thedropdown_chunk is a string token,STRING
 checkbox_chunk,"""`+"" -> checkbox_anonymous | ""`+="" caption -> checkbox_anonymous_caption | ""`+"" WORD -> checkbox_named | ""`+"" WORD ""="" caption -> checkbox_named_caption",thecheckbox_chunk,thecheckbox_chunk is a string token,STRING
+condition_chunk,condition_start | condition_end,thecondition_chunk,thecondition_chunk is a string token,STRING
+condition_start,"""`?_"" WORD "":"" condition",token,token contains two strings field and conditional expression,PASS
+condition_end,"""`_?"" ",token,token is an anonymous token; just replace it,"result = ""[/conditonal]"""
 string_chunk,STRING | ESCAPED_STRING,thestring_chunk,thestring_chunk is a string token,STRING
 default_text,ESCAPED_STRING,theDefaultText,theDefaultText is a string token,STRING
 dropdown_options,ESCAPED_STRING,theDropdownOptions,theDropdownOptions is a string token,STRING
 caption,ESCAPED_STRING,theCaption,theCaption is a string token,STRING
+condition,ESCAPED_STRING,theCondition,theCondition is a string token,STRING
 regex:STRING,/[ a-zA-Z0-9(){}\[\];:_?&%#|@^!*=><\-\'\+\\\/\.\n\t\r\f]+/,,,
 %import common.ESCAPED_STRING, ,,,
 %import common.WORD, ,,,
