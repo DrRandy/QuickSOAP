@@ -1,0 +1,14 @@
+[comment memo="Return to Work Progress Note" size="large"]`?+_demographic="_"DEMOGRAPHICS
+Employee `@firstname `@lastname   Employee ID `@eid   Age `@age     Job `@job        
+Pronouns `^upperHeShe="He|She|They" `^lowerHeShe="he|she|they" `^upperHisHer="His|Her|Their" `^lowerHisHer="his|her|their"
+Contact Info Phone `@phone      Email `@email
+Location `@location    Start Date `@started    Employer `@employer
+`_?
+`?+_subjective="_"SUBJECTIVE
+`@firstname `@lastname is a `@age year-old `@job working at `@location, who has been employed by `@employer since `@started. 
+
+`^upperHeShe has been on leave for `^="medical reasons.|mental health reasons. |both medical and mental health reasons. " `^upperHisHer last day of work was `@lastdayworked. `^upperHeShe is now seeking medical clearance to return to work. 
+`_?
+`?+_objective="_"OBJECTIVE
+Physical Exam stuff goes here
+`_?
