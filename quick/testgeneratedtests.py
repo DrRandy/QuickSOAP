@@ -93,6 +93,12 @@ class TestCheckbox(unittest.TestCase):
         test_output = convert(input)
         self.assertEqual(output, test_output, "CheckboxNamedCaption did not parse correctly")
 
+    def test_CheckboxConditional(self):
+        input = "`?+_show=\"show section\" The section goes here. `_?"
+        output = "[checkbox name=\"show\" value=\"show section\"][conditional field=\"show\" condition=\"(show).is('show section')\"] The section goes here. [/conditional]"
+        test_output = convert(input)
+        self.assertEqual(output, test_output, "CheckboxConditional did not parse correctly")
+
 class TestConditional(unittest.TestCase):
 
     def test_ConditionalStart(self):
@@ -106,6 +112,12 @@ class TestConditional(unittest.TestCase):
         output = "[/conditional]"
         test_output = convert(input)
         self.assertEqual(output, test_output, "ConditionalEnd did not parse correctly")
+
+    def test_ConditionalStartConditionalEnd(self):
+        input = "`?_cleared:\"(cleared).is('okay to start')\" Starting documents go here `_?"
+        output = "[conditional field=\"cleared\" condition=\"(cleared).is('okay to start')\"] Starting documents go here [/conditional]"
+        test_output = convert(input)
+        self.assertEqual(output, test_output, "ConditionalStartConditionalEnd did not parse correctly")
 
 
 if __name__=="__main__":

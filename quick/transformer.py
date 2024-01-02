@@ -115,6 +115,11 @@ class QuickTransformer(UtilityTransformer):
         result = '<<<' + name + '>>>'
         return result
     
+    def checkbox_conditional(self, token):
+        name, caption = token
+        result = '<<<' + name + '>>>'
+        return result
+    
     def condition_start(self, token):
         " token contains two strings field and conditional expression "
         # ToDo
@@ -227,6 +232,16 @@ class TokenListTransformer(UtilityTransformer):
         firstpass = '[checkbox name="' + name + '" value=' + caption + ']'
         secondpass = '[var name="' + name + '"]'
         result = name+"", {'firstpass': firstpass, 'secondpass': secondpass}
+        return result
+    
+    def checkbox_conditional(self, token):
+        name, caption = token
+        name = name+""
+        caption = caption+""
+        condition = '"(' + name + ").is('" + caption[1:-1] + "')"
+        firstpass = '[checkbox name="' + name + '" value=' + caption + ']' + '[conditional field="' + name + '" condition=' + condition + '"]'
+        secondpass = '[var name="' + name + '"]'
+        result = name, {'firstpass': firstpass, 'secondpass': secondpass}
         return result
     
     def condition_start(self, token):

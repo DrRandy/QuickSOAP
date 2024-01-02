@@ -20,7 +20,4 @@ def main(filename):
 if __name__ == "__main__":
     filename = sys.argv[1]
     main(filename)
-    import sys
-    with open(sys.argv[1]) as filename:
-        for line in filename:
-               print(line)
+    
