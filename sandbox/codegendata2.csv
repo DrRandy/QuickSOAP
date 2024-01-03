@@ -1,4 +1,4 @@
-Term Type,EBNF Term,EBNF Rule,EBNF Alias,FirstPassTransformer Variables,FirstPassTransformer Comments,FirstPassTransformer(StringTransformer)
+Term Type,EBNF Term,EBNF Rule,EBNF Alias,FirstPassTransformer Variables,FirstPassTransformer Comments,FirstPassTransformer(StringTransformer) Code
 rule,value,chunk+,,theChunks,theChunks is a list of strings,"result = """".join(theChunks)"
 rule,chunk,,,theChunk,theChunk is a string,
 rule,|,textbox_chunk,,,,
