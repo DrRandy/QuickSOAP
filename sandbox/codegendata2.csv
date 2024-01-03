@@ -1,0 +1,29 @@
+Term Type,EBNF Term,EBNF Definition,Literal Definition,FirstPassTransformer Variables,FirstPassTransformer Comments,FirstPassTransformer(StringTransformer)
+rule,value,chunk+,,theChunks,theChunks is a list of strings,"result = """".join(theChunks)"
+rule,chunk,textbox_chunk,,theTextboxChunk,theTextboxChunk is a string,
+rule,|,dropdown_chunk,,theDropdownChunk,theDropdownChunk is a string,
+rule,|,checkbox_chunk,,theCheckboxChunk,theCheckboxChunk is a string,
+rule,|,conditional_chunk,,theConditionalChunk,theConditionalChunk is a string,
+rule,|,string_chunk,,theStringChunk,theStringChunk is a string,
+rule,textbox_chunk,textbox_anonymous,"""`@""",token,anonymous token,"result = ""[textbox]"""
+rule,|,textbox_anonymous_default_text,"""`@"" ""="" default_text",theDefaultText,theDefaultText is a string,"result = ""[textbox value="" + theDefaultText + ""]"" "
+rule,|,textbox_named,"""`@"" WORD",theFieldname,theFieldname is a string,result = placeholder(theFieldname)
+rule,|,textbox_named_default_text,"""`@"" WORD ""="" default_text","theFieldname, theDefaultText",theFieldname and theDefaultText are both strings,result = placeholder(theFieldname)
+rule,dropdown_chunk,dropdown_anonymous_value,"""`^"" ""="" value",theValue,theValue is a string,"result = ""[select value="" + theValue + ""]"""
+rule,|,dropdown_named,"""`^"" WORD",theFieldname,theFieldname is a string,result = placeholder(theFieldname)
+rule,|,dropdown_named_value,"""`^"" WORD ""="" value","theFieldname, theValue",theFieldname and theValue are both strings,result = placeholder(theFieldname)
+rule,checkbox_chunk,checkbox_anonymous,"""`+""",token,anonymous token,
+rule,|,checkbox_anonymous_value,"""`+"" ""="" value",theValue,theValue is a string,
+rule,|,checkbox_named,"""`+"" WORD",theFieldname,theFieldname is a string,result = placeholder(theFieldname)
+rule,|,checkbox_named_value,"""`+"" WORD ""="" value","theFieldname, theValue",theFieldname and theValue are both strings,result = placeholder(theFieldname)
+rule,|,checkbox_conditional,"""`+?_"" WORD ""="" value","theCheckboxFieldname, theCheckboxValue",theCheckboxFieldname and theCheckboxValue are both strings,result = placeholder(theFieldname)
+rule,conditional_chunk,conditional_start,"""`?_"" WORD "":"" condition","theFieldname, theCondition",theFieldname and theCondition are both strings,"result = '[conditional field="" + theFieldname + '"" condition=' + theCondition + ]'"
+rule,|,conditional_end,"""`_?""",token,anonymous token,"result = ""[/conditional]"""
+rule,string_chunk,,STRING,theString,theString is a string,
+rule,|,,ESCAPED_STRING,theEscapedString,theEscapedString is a string,
+rule,default_text,,ESCAPED_STRING,theDefaultText,theDefaultText is a string,
+rule,value,,ESCAPED_STRING,theValue,theValue is a string,
+rule,condition,,ESCAPED_STRING,theCondition,theCondition is a string,
+terminal,STRING,,"/[ a-zA-Z0-9(){}\[\];:_,?&%#|@^!*=><\-\'\+\\\/\.\n\t\r\f]+/",,,
+special,%import common.ESCAPED_STRING,,,,,
+special,%import common.WORD,,,,,
