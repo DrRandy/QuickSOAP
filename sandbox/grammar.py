@@ -5,6 +5,7 @@ quickgrammar = r"""
     chunk   : textbox_chunk 
         |  dropdown_chunk 
         |  checkbox_chunk 
+        |  condition_chunk 
         |  string_chunk 
     
     textbox_chunk   : "`@" -> textbox_anonymous 
@@ -19,7 +20,15 @@ quickgrammar = r"""
     checkbox_chunk   : "`+" -> checkbox_anonymous 
         |  "`+=" caption -> checkbox_anonymous_caption 
         |  "`+" WORD -> checkbox_named 
-        |  "`+" WORD "=" caption -> checkbox_named_caption
+        |  "`+" WORD "=" caption -> checkbox_named_caption 
+        |  "`?+_" WORD "=" caption -> checkbox_conditional
+    
+    condition_chunk   : condition_start 
+        |  condition_end
+    
+    condition_start   : "`?_" WORD ":" condition
+    
+    condition_end   : "`_?" 
     
     string_chunk   : STRING 
         |  ESCAPED_STRING
@@ -30,7 +39,9 @@ quickgrammar = r"""
     
     caption   : ESCAPED_STRING
     
-    STRING :   /[ a-zA-Z0-9(){}\[\];:_?&%#|@^!*=><\-\'\+\\\/\.\n\t\r\f]+/
+    condition   : ESCAPED_STRING
+    
+    STRING :   /[ a-zA-Z0-9(){}\[\];:_,?&%#|@^!*=><\-\'\+\\\/\.\n\t\r\f]+/
     
     %import common.ESCAPED_STRING   
     
