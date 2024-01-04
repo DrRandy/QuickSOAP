@@ -1,0 +1,50 @@
+VITALS [text]
+[textarea fillable="true"]
+GENERAL APPEARANCE
+Employee is a ***comfortable-appearing*** ****** sitting up ***in no apparent distress***; changes position (sitting/standing/lying/mounting-dismounting exam table) ***without difficulty***.
+[/textarea]
+[checkbox name="showneck" value="NECK EXAM"][conditional field="showneck" condition="(showneck).is('NECK EXAM')"]
+Neck Inspection: [select name="neckScar" value="not examined|no scar|scar noted"] [conditional field="neckScar" condition="(neckScar).is('scar noted')"] [text] [/conditional]
+Neck ROM: [select name="neckROM" value="FROM|decreased ROM"] [conditional field="neckROM" condition="(neckROM).isNot('FROM')"]
+turning right: [select value="|slightly decreased|moderately decreased|markedly decreased"] [select value="|exacerbates pain|ameliorates pain"] 
+turning left: [select value="|slightly decreased|moderately decreased|markedly decreased"] [select value="|exacerbates pain|ameliorates pain"] 
+tilting right: [select value="|slightly decreased|moderately decreased|markedly decreased"] [select value="|exacerbates pain|ameliorates pain"] 
+tilting left: [select value="|slightly decreased|moderately decreased|markedly decreased"] [select value="|exacerbates pain|ameliorates pain"] 
+extension: [select value="|slightly decreased|moderately decreased|markedly decreased"] [select value="|exacerbates pain|ameliorates pain"] 
+flexion: [select value="|slightly decreased|moderately decreased|markedly decreased"] [select value="|exacerbates pain|ameliorates pain"] [/conditional]
+Neck Tenderness: [select name="neckTenderness" value="not tested|no tenderness|tenderness is noted"] [conditional field="neckTenderness" condition="(neckTenderness).is('tenderness is noted')"] [text] [/conditional]
+Neck Spasm: [select name="neckSpasm" value="not tested|no spasm|spasm is noted"] [conditional field="neckSpasm" condition="(neckSpasm).is('spasm is noted')"] [select value="| on the right| on the left| bilaterally"] [/conditional]
+[/conditional]
+
+[checkbox name="showback" value="BACK EXAM"][conditional field="showback" condition="(showback).is('BACK EXAM')"]
+Back Inspection: [select name="backScar" value="not examined|no scar|scar noted"] [conditional field="backScar" condition="(backScar).is('scar noted')"] [text] [/conditional]
+Back ROM: [select name="backROM" value="FROM|decreased ROM"] [conditional field="backROM" condition="(backROM).isNot('FROM')"]
+turning right: [select value="|slightly decreased|moderately decreased|markedly decreased"] [select value="|exacerbates pain|ameliorates pain"] 
+turning left: [select value="|slightly decreased|moderately decreased|markedly decreased"] [select value="|exacerbates pain|ameliorates pain"] 
+tilting right: [select value="|slightly decreased|moderately decreased|markedly decreased"] [select value="|exacerbates pain|ameliorates pain"] 
+tilting left: [select value="|slightly decreased|moderately decreased|markedly decreased"] [select value="|exacerbates pain|ameliorates pain"] 
+extension: [select value="|slightly decreased|moderately decreased|markedly decreased"] [select value="|exacerbates pain|ameliorates pain"] 
+flexion: [select value="|slightly decreased|moderately decreased|markedly decreased"] [select value="|exacerbates pain|ameliorates pain"] [/conditional]
+Back Tenderness: [select name="backTenderness" value="not tested|no tenderness|tenderness is noted"] [conditional field="backTenderness" condition="(backTenderness).is('tenderness is noted')"] [text] [/conditional]
+Back Spasm: [select name="backSpasm" value="not tested|no spasm|spasm is noted"] [conditional field="backSpasm" condition="(backSpasm).is('spasm is noted')"] [select value="| on the right| on the left| bilaterally"] [text] [/conditional]
+Straight Leg Raise: [select name="straightLegRaise" value="not tested|normal bilaterally|abnormal: "] [conditional field="straightLegRaise" condition="(straightLegRaise).is('abnormal: ')"] 
+Right side is [select value="normal|negative but reproduces pain|not tolerated due to pain"] [text] 
+Left side is [select value="normal|negative but reproduces pain|not tolerated due to pain"] [text] [/conditional]
+[/conditional]
+
+[checkbox name="showNeuro" value="NEURO EXAM"][conditional field="showNeuro" condition="(showNeuro).is('NEURO EXAM')"]
+[checkbox name="showUpperExt" value="Upper Extremities"][conditional field="showUpperExt" condition="(showUpperExt).is('Upper Extremities')"]
+Reflexes (biceps, brachioradialis) [select value="not tested|1+ and symmetrical bilaterally|2+ and symmetrical bilaterally|3+ and symmetrical bilaterally|asymmetric"] [text] 
+Strength (all major muscle groups, hand grip, digital opposition)[select value="not tested|5/5 bilaterally|abnormal"] [text] [/conditional]
+
+[checkbox name="showLowerExt" value="Lower Extremities"][conditional field="showLowerExt" condition="(showLowerExt).is('Lower Extremities')"]
+Reflexes (KJ, AJ) [select value="not tested|1+ and symmetrical bilaterally|2+ and symmetrical bilaterally|3+ and symmetrical bilaterally|asymmetric"] [text] 
+Strength (all major muscle groups)[select value="not tested|5/5 bilaterally|abnormal"] [text] [/conditional]
+
+[checkbox name="showGait" value="Gait"][conditional field="showGait" condition="(showGait).is('Gait')"] [select name="gait" value="normal|abnormal"] [conditional field="gait" condition="(gait).is('abnormal')"][checkbox value="antalgic favoring right|antalgic favoring left|wide-based|shuffling"] [text]  [/conditional] [/conditional]
+[/conditional]
+
+[textarea fillable="true"]
+ADDITIONAL COMMENTS
+***distractable findings***
+[/textarea]
