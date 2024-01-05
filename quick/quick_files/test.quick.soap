@@ -1,5 +1,5 @@
 
-[text name="firstname"] [text name="lastname"] is a [text name="age"] year-old [text name="job"] working at [text name="location" value="Allegheny General Hospital"].
+[text name="firstname"] [text name="lastname"] is a [text name="age"] year-old [text name="job"] working at [text name="location" default="Allegheny General Hospital"].
 
 [var name="firstname"] has worked at [var name="location"] since [text].
 

@@ -39,13 +39,17 @@ with open('codegendata2.csv', newline='') as csvfile:
         theVars1 = row[_T1VARS]
         theInitialCode1 = row[_T1CODE]
         if not (theVars1=="" or theVars1=="token"):
-            theVars1 = "\n\t\t%s = token" % theVars1
+            if (not ",") and (not theVars1=="chunks_token") in theVars1:
+                theComma = ","
+            else:
+                theComma = ""
+            theVars1 = "\n\t\t%s%s = token" % (theVars1, theComma)
         else:
             theVars1 = ""
         if not theComment1 == "":
             theComment1 = '\n\t\t# ' + theComment1 
         if theInitialCode1 == "":
-            theFinalCode1 = "\t\tresult = str(token[0])"
+            theFinalCode1 = "\t\tresult, = token"
         else:
             theFinalCode1 = "\t\t" + theInitialCode1
         if theTerm == "|":
