@@ -1,0 +1,50 @@
+VITALS `@
+[textarea fillable="true"]
+GENERAL APPEARANCE
+Employee is a ***comfortable-appearing*** ****** sitting up ***in no apparent distress***; changes position (sitting/standing/lying/mounting-dismounting exam table) ***without difficulty***.
+[/textarea]
+`?+_showneck="NECK EXAM"
+Neck Inspection: `^neckScar="not examined|no scar|scar noted" `?_neckScar:"(neckScar).is('scar noted')" `@ `_?
+Neck ROM: `^neckROM="FROM|decreased ROM" `?_neckROM:"(neckROM).isNot('FROM')"
+turning right: `^="|slightly decreased|moderately decreased|markedly decreased" `^="|exacerbates pain|ameliorates pain" 
+turning left: `^="|slightly decreased|moderately decreased|markedly decreased" `^="|exacerbates pain|ameliorates pain" 
+tilting right: `^="|slightly decreased|moderately decreased|markedly decreased" `^="|exacerbates pain|ameliorates pain" 
+tilting left: `^="|slightly decreased|moderately decreased|markedly decreased" `^="|exacerbates pain|ameliorates pain" 
+extension: `^="|slightly decreased|moderately decreased|markedly decreased" `^="|exacerbates pain|ameliorates pain" 
+flexion: `^="|slightly decreased|moderately decreased|markedly decreased" `^="|exacerbates pain|ameliorates pain" `_?
+Neck Tenderness: `^neckTenderness="not tested|no tenderness|tenderness is noted" `?_neckTenderness:"(neckTenderness).is('tenderness is noted')" `@ `_?
+Neck Spasm: `^neckSpasm="not tested|no spasm|spasm is noted" `?_neckSpasm:"(neckSpasm).is('spasm is noted')" `^="| on the right| on the left| bilaterally" `_?
+`_?
+
+`?+_showback="BACK EXAM"
+Back Inspection: `^backScar="not examined|no scar|scar noted" `?_backScar:"(backScar).is('scar noted')" `@ `_?
+Back ROM: `^backROM="FROM|decreased ROM" `?_backROM:"(backROM).isNot('FROM')"
+turning right: `^="|slightly decreased|moderately decreased|markedly decreased" `^="|exacerbates pain|ameliorates pain" 
+turning left: `^="|slightly decreased|moderately decreased|markedly decreased" `^="|exacerbates pain|ameliorates pain" 
+tilting right: `^="|slightly decreased|moderately decreased|markedly decreased" `^="|exacerbates pain|ameliorates pain" 
+tilting left: `^="|slightly decreased|moderately decreased|markedly decreased" `^="|exacerbates pain|ameliorates pain" 
+extension: `^="|slightly decreased|moderately decreased|markedly decreased" `^="|exacerbates pain|ameliorates pain" 
+flexion: `^="|slightly decreased|moderately decreased|markedly decreased" `^="|exacerbates pain|ameliorates pain" `_?
+Back Tenderness: `^backTenderness="not tested|no tenderness|tenderness is noted" `?_backTenderness:"(backTenderness).is('tenderness is noted')" `@ `_?
+Back Spasm: `^backSpasm="not tested|no spasm|spasm is noted" `?_backSpasm:"(backSpasm).is('spasm is noted')" `^="| on the right| on the left| bilaterally" `@ `_?
+Straight Leg Raise: `^straightLegRaise="not tested|normal bilaterally|abnormal: " `?_straightLegRaise:"(straightLegRaise).is('abnormal: ')" 
+Right side is `^="normal|negative but reproduces pain|not tolerated due to pain" `@ 
+Left side is `^="normal|negative but reproduces pain|not tolerated due to pain" `@ `_?
+`_?
+
+`?+_showNeuro="NEURO EXAM"
+`?+_showUpperExt="Upper Extremities"
+Reflexes (biceps, brachioradialis) `^="not tested|1+ and symmetrical bilaterally|2+ and symmetrical bilaterally|3+ and symmetrical bilaterally|asymmetric" `@ 
+Strength (all major muscle groups, hand grip, digital opposition)`^="not tested|5/5 bilaterally|abnormal" `@ `_?
+
+`?+_showLowerExt="Lower Extremities"
+Reflexes (KJ, AJ) `^="not tested|1+ and symmetrical bilaterally|2+ and symmetrical bilaterally|3+ and symmetrical bilaterally|asymmetric" `@ 
+Strength (all major muscle groups)`^="not tested|5/5 bilaterally|abnormal" `@ `_?
+
+`?+_showGait="Gait" `^gait="normal|abnormal" `?_gait:"(gait).is('abnormal')"`+="antalgic favoring right|antalgic favoring left|wide-based|shuffling" `@  `_? `_?
+`_?
+
+[textarea fillable="true"]
+ADDITIONAL COMMENTS
+***distractable findings***
+[/textarea]
