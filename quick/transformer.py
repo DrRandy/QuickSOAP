@@ -1,6 +1,9 @@
 import lark
 from lark import Transformer
 
+discard = lark.visitors.Discard
+
+
 def transform(ast):
     output = QuickTransformer().transform(ast)
     # print(output)
@@ -22,57 +25,42 @@ def insert_tokens(the_string, the_tokens):
     
 
 
-class UtilityTransformer(Transformer):
-    """ Adds simple utility methods for returning common transformations"""
-
-    def tokenString(self, token):
-        """returns the token as a string"""
-        result = token[0]
-        return result
-    
-    def tokenDiscard(self, token):
-        """discards the token"""
-        result = lark.visitors.Discard
-        return result
-
-
-class QuickTransformer(UtilityTransformer):
+class QuickTransformer(Transformer):
 
     def value(self, token):
         result = "".join(token)
         return result
     
     def chunk(self, token):
-        return self.tokenString(token)
+        return str(token[0])
     
     def textbox_chunk(self, token):
-        return self.tokenString(token)
+        return str(token[0])
     
     def dropdown_chunk(self, token):
-        return self.tokenString(token)
+        return str(token[0])
     
     def checkbox_chunk(self, token):
-        return self.tokenString(token)
+        return str(token[0])
         
-    def condition_chunk(self, thecondition_chunk):
+    def condition_chunk(self, token):
         " thecondition_chunk is a string token "
-        result = self.tokenString(thecondition_chunk)
-        return result
+        return str(token[0])
     
     def string_chunk(self, token):
-        return self.tokenString(token)
+        return str(token[0])
                          
     def textbox_anonymous(self, token):
         result = '[text]'
         return result
     
     def textbox_anonymous_default_text(self, token):
-        default_text = token[0]
+        default_text = str(token[0])
         result = '[text value=' + default_text + ']'
         return result
     
     def textbox_named(self, token):
-        name = token[0]
+        name = str(token[0])
         result = '<<<' + name + '>>>'
         return result
     
@@ -82,7 +70,7 @@ class QuickTransformer(UtilityTransformer):
         return result
     
     def dropdown_anonymous_options(self, token):
-        options = token[0]
+        options = str(token[0])
         result = '[select value=' + options + ']'
         return result
     
@@ -133,21 +121,20 @@ class QuickTransformer(UtilityTransformer):
         return result
 
     def default_text(self, token):
-        return self.tokenString(token)
+        return str(token[0])
                          
     def dropdown_options(self, token):
-        return self.tokenString(token)
+        return str(token[0])
                       
     def caption(self, token):
-        return self.tokenString(token)
+        return str(token[0])
 
-    def condition(self, theCondition):
+    def condition(self, token):
         " theCondition is a string token "
-        result = self.tokenString(theCondition)
-        return result
+        return str(token[0])
 
 
-class TokenListTransformer(UtilityTransformer):
+class TokenListTransformer(Transformer):
 
     def value(self, token):
         token_dict = dict()
@@ -172,19 +159,19 @@ class TokenListTransformer(UtilityTransformer):
     #   not needed, default is to return the token
     
     def condition_chunk(self, token):
-        return self.tokenDiscard(token)
+        return discard
 
     def string_chunk(self, token):
-        return self.tokenDiscard(token)
+        return discard
     
     def textbox_anonymous(self, token):
-        return self.tokenDiscard(token)
+        return discard
     
     def textbox_anonymous_default_text(self, token):
-        return self.tokenDiscard(token)
+        return discard
     
     def textbox_named(self, token):
-        name = token[0]
+        name = str(token[0])
         firstpass = '[text name="' + name + '"]'
         secondpass = '[var name="' + name + '"]'
         result = name+"", {'firstpass': firstpass, 'secondpass': secondpass}
@@ -198,7 +185,7 @@ class TokenListTransformer(UtilityTransformer):
         return result
     
     def dropdown_anonymous_options(self, token):
-        return self.tokenDiscard(token)
+        return discard
     
     def dropdown_named(self, token):
         name = token[0]
@@ -215,10 +202,10 @@ class TokenListTransformer(UtilityTransformer):
         return result
     
     def checkbox_anonymous(self, token):
-        return self.tokenDiscard(token)
+        return discard
     
     def checkbox_anonymous_caption(self, token):
-        return self.tokenDiscard(token)
+        return discard
     
     def checkbox_named(self, token):
         name = token[0]
@@ -245,19 +232,19 @@ class TokenListTransformer(UtilityTransformer):
         return result
     
     def condition_start(self, token):
-        return self.tokenDiscard(token)
+        return discard
     
     def condition_end(self, token):
-        return self.tokenDiscard(token)
+        return discard
     
     def default_text(self, token):
-        return self.tokenString(token)
+        return str(token[0])
                          
     def dropdown_options(self, token):
-        return self.tokenString(token)
+        return str(token[0])
                       
     def caption(self, token):
-        return self.tokenString(token)
+        return str(token[0])
                       
     def condition(self, token):
-        return self.tokenString(token)
+        return str(token[0])
