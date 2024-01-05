@@ -5,7 +5,7 @@ _TERM  = "EBNF Term"
 _RULE  = "EBNF Rule"
 _ALIAS = "EBNF Alias"
 
-line_template = """\t%s %s %s\t%s  %s"""
+line_template = """\t%s %s %s\t%s  %s\n"""
 
 def padspaces(n):
     theLength = 25 - n
@@ -13,8 +13,10 @@ def padspaces(n):
         theLength = 1
 
 with open('codegendata2.csv', newline='') as csvfile:
+    output = ""
     reader = csv.DictReader(csvfile)
     for row in reader:
+        theType = row[_TYPE]
         theTerm = row[_TERM]
         theAssign = ":"
         theRule = row[_RULE] 
@@ -29,4 +31,14 @@ with open('codegendata2.csv', newline='') as csvfile:
             theArrow = "->"
         else:
             theArrow = ""
-        print( line_template % (theTerm, theAssign, theRule, theArrow, theAlias) )
+        if theType == "special":
+            theAssign = ""
+        output = output + line_template % (theTerm, theAssign, theRule, theArrow, theAlias)
+    output = '\nquickgrammar = r"""%s\n"""' % output
+    print(output)
+    csvfile.close()
+
+
+with open("../quick/grammar.py", 'w') as grammarfile:
+    grammarfile.write(output)
+    grammarfile.close()
