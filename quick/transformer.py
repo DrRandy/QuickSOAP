@@ -3,8 +3,8 @@ from lark import Transformer
 
 discard = lark.visitors.Discard
 
-def placeholder(name):
-    result = "<<<" + name + ">>>"
+def placeholder(fieldname):
+    result = "<<<" + fieldname + ">>>"
     return result
 
 def transform(ast):
@@ -30,6 +30,141 @@ def insert_tokens(the_string, the_tokens):
 
 class QuickTransformer(Transformer):
 
+
+        def quicksoap(self, token):
+                # chunks_token is a list of strings
+                chunks_token = token
+                result = "".join(chunks_token)
+                return result
+
+        def chunk(self, token):
+                result = str(token[0])
+                return result
+
+        def textbox_chunk(self, token):
+                result = str(token[0])
+                return result
+
+        def textbox_anonymous(self, token):
+                # anonymous token
+                result = "[text]"
+                return result
+
+        def textbox_anonymous_default_text(self, token):
+                # default text for the textbox
+                default_text_token = token
+                result = "[text default=" + default_text_token[0] + "]" 
+                return result
+
+        def textbox_named(self, token):
+                # name of the textbox
+                fieldname_token = token
+                print(fieldname_token)
+                result = placeholder(fieldname_token[0])
+                return result
+
+        def textbox_named_default_text(self, token):
+                # name and default text for the textbox
+                fieldname_token, default_text_token = token
+                result = placeholder(fieldname_token)
+                return result
+
+        def dropdown_chunk(self, token):
+                result = str(token)
+                return result
+
+        def dropdown_anonymous_value(self, token):
+                # value is a string with options for the dropdown
+                value_token = token[0]
+                result = "[select value=" + value_token + "]"
+                return result
+
+        def dropdown_named(self, token):
+                # name of the dropdown
+                fieldname_token = token
+                result = placeholder(fieldname_token)
+                return result
+
+        def dropdown_named_value(self, token):
+                # name and options for the dropdown
+                fieldname_token, value_token = token
+                result = placeholder(fieldname_token)
+                return result
+
+        def checkbox_chunk(self, token):
+                result = str(token)
+                return result
+
+        def checkbox_anonymous(self, token):
+                # anonymous token
+                result = "[checkbox]"
+                return result
+
+        def checkbox_anonymous_value(self, token):
+                # value is a string with options for the checkbox
+                value_token = token[0]
+                result = "[checkbox value=" + value_token +"]"
+                return result
+
+        def checkbox_named(self, token):
+                # name of the checkbox
+                fieldname_token = token
+                result = placeholder(fieldname_token[0])
+                return result
+
+        def checkbox_named_value(self, token):
+                # name and options for the checkbox
+                fieldname_token, value_token = token
+                result = placeholder(fieldname_token)
+                return result
+
+        def checkbox_conditional(self, token):
+                # name and string with single option for the checkbox
+                fieldname_token, value_token = token
+                result = placeholder(fieldname_token)
+                return result
+
+        def conditional_chunk(self, token):
+                result = str(token[0])
+                return result
+
+        def conditional_start(self, token):
+                # name and condition for the conditional
+                fieldname_token, condition_token = token
+                result = '[conditional field="' + fieldname_token + '" condition=' + condition_token + ']'
+                return result
+
+        def conditional_end(self, token):
+                # anonymous token
+                result = "[/conditional]"
+                return result
+
+        def string_chunk(self, token):
+                result = str(token[0])
+                return result
+
+        def fieldname(self, token):
+                result = str(token[0])
+                return result
+
+        def default_text(self, token):
+                result = str(token[0])
+                return result
+
+        def value(self, token):
+                result = str(token[0])
+                return result
+
+        def condition(self, token):
+                result = str(token[0])
+                return result
+
+
+
+
+
+
+class OldQuickTransformer(Transformer):
     def quicksoap(self, token):
         result = "".join(token)
         return result
@@ -182,7 +317,7 @@ class TokenListTransformer(Transformer):
     
     def textbox_named_default_text(self, token):
         name, default_text = token
-        firstpass = '[text name="' + name + '" value=' + default_text + ']'
+        firstpass = '[text name="' + name + '" default=' + default_text + ']'
         secondpass = '[var name="' + name + '"]'
         result = name+"", {'firstpass': firstpass, 'secondpass': secondpass}
         return result
@@ -241,6 +376,10 @@ class TokenListTransformer(Transformer):
     def conditional_end(self, token):
         return discard
     
+    def fieldname(self, token):
+        result = str(token[0])
+        return result
+
     def default_text(self, token):
         return str(token[0])
                          

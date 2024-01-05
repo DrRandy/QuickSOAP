@@ -13,7 +13,7 @@ class TestTextbox(unittest.TestCase):
 
     def test_TextboxAnonymousDefaultText(self):
         input = "`@=\"default text\""
-        output = "[text value=\"default text\"]"
+        output = "[text default=\"default text\"]"
         test_output = convert(input)
         self.assertEqual(output, test_output, "TextboxAnonymousDefaultText did not parse correctly")
 
@@ -25,7 +25,7 @@ class TestTextbox(unittest.TestCase):
 
     def test_TextboxNamedDefaultText(self):
         input = "`@fieldname=\"default text\""
-        output = "[text name=\"fieldname\" value=\"default text\"]"
+        output = "[text name=\"fieldname\" default=\"default text\"]"
         test_output = convert(input)
         self.assertEqual(output, test_output, "TextboxNamedDefaultText did not parse correctly")
 
@@ -37,7 +37,7 @@ class TestTextbox(unittest.TestCase):
 
     def test_TextboxAnonymousDefaultTextPlusBoilerplate(self):
         input = "Today is a `@=\"wonderful\" day!"
-        output = "Today is a [text value=\"wonderful\"] day!"
+        output = "Today is a [text default=\"wonderful\"] day!"
         test_output = convert(input)
         self.assertEqual(output, test_output, "TextboxAnonymousDefaultTextPlusBoilerplate did not parse correctly")
 
@@ -49,7 +49,7 @@ class TestTextbox(unittest.TestCase):
 
     def test_TextboxNamedDefaultTextPlusBoilerplate(self):
         input = "Your favorite color is `@color=\"blue\"."
-        output = "Your favorite color is [text name=\"color\" value=\"blue\"]."
+        output = "Your favorite color is [text name=\"color\" default=\"blue\"]."
         test_output = convert(input)
         self.assertEqual(output, test_output, "TextboxNamedDefaultTextPlusBoilerplate did not parse correctly")
 
