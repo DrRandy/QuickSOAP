@@ -3,7 +3,14 @@ from lark import Transformer
 
 discard = lark.visitors.Discard
 
+def placeholderFromName(name):
+    result = "<<<" + name + ">>>"
+    return result
 
+def nameFromPlaceholder(placeholder):
+    result = placeholder.remove("<<<").remove(">>>")
+    return result
+                                              
 def transform(ast):
     output = QuickTransformer().transform(ast)
     # print(output)
@@ -61,12 +68,12 @@ class QuickTransformer(Transformer):
     
     def textbox_named(self, token):
         name = str(token[0])
-        result = '<<<' + name + '>>>'
+        result = self.placeholderFromName(name)
         return result
     
     def textbox_named_default_text(self, token):
         name, default_text = token
-        result = '<<<' + name + '>>>'
+        result = self.placeholderFromName(name)
         return result
     
     def dropdown_anonymous_options(self, token):
@@ -76,12 +83,12 @@ class QuickTransformer(Transformer):
     
     def dropdown_named(self, token):
         name = token[0]
-        result = '<<<' + name + '>>>'
+        result = self.placeholderFromName(name)
         return result
     
     def dropdown_named_options(self, token):
         name, options = token
-        result = '<<<' + name + '>>>'
+        result = self.placeholderFromName(name)
         return result
     
     def checkbox_anonymous(self, token):
@@ -95,17 +102,17 @@ class QuickTransformer(Transformer):
     
     def checkbox_named(self, token):
         name = token[0]
-        result = '<<<' + name + '>>>'
+        result = self.placeholderFromName(name)
         return result
     
     def checkbox_named_caption(self, token):
         name, caption = token
-        result = '<<<' + name + '>>>'
+        result = self.placeholderFromName(name)
         return result
     
     def checkbox_conditional(self, token):
         name, caption = token
-        result = '<<<' + name + '>>>'
+        result = self.placeholderFromName(name)
         return result
     
     def condition_start(self, token):
