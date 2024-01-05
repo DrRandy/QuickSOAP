@@ -15,7 +15,7 @@ def main(filename):
     with open(filename+".soap", "w") as the_output_file:
         the_output_file.write(soaptext)
     the_output_file.close()
-    print(soaptext)
+    # print(soaptext)
 
 if __name__ == "__main__":
     filename = sys.argv[1]

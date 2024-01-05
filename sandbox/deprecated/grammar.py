@@ -1,12 +1,13 @@
 
 quickgrammar = r"""	
+
 	quicksoap : chunk+                   	  
 	
 	chunk :                          	  
 	    |	  textbox_chunk            	  
 	    |	  dropdown_chunk           	  
 	    |	  checkbox_chunk           	  
-	    |	  conditional_chunk        	  
+	    |	  conditional_chunk          	  
 	    |	  string_chunk             	  
 	
 	textbox_chunk :                          	  
@@ -20,8 +21,8 @@ quickgrammar = r"""
 	    |	  "`^" WORD                	->  dropdown_named
 	    |	  "`^" WORD "=" value      	->  dropdown_named_value
 	
-	checkbox_chunk :                          	  
-	    |	  "`+"                     	->  checkbox_anonymous
+	checkbox_chunk :  
+		|	  "`+"              		->  checkbox_anonymous
 	    |	  "`+" "=" value           	->  checkbox_anonymous_value
 	    |	  "`+" WORD                	->  checkbox_named
 	    |	  "`+" WORD "=" value      	->  checkbox_named_value

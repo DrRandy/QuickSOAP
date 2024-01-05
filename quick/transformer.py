@@ -30,7 +30,7 @@ def insert_tokens(the_string, the_tokens):
 
 class QuickTransformer(Transformer):
 
-    def value(self, token):
+    def quicksoap(self, token):
         result = "".join(token)
         return result
     
@@ -46,7 +46,7 @@ class QuickTransformer(Transformer):
     def checkbox_chunk(self, token):
         return str(token[0])
         
-    def condition_chunk(self, token):
+    def conditional_chunk(self, token):
         " thecondition_chunk is a string token "
         return str(token[0])
     
@@ -72,9 +72,9 @@ class QuickTransformer(Transformer):
         result = placeholder(name)
         return result
     
-    def dropdown_anonymous_options(self, token):
-        options = str(token[0])
-        result = '[select value=' + options + ']'
+    def dropdown_anonymous_value(self, token):
+        value = str(token[0])
+        result = '[select value=' + value + ']'
         return result
     
     def dropdown_named(self, token):
@@ -82,8 +82,8 @@ class QuickTransformer(Transformer):
         result = placeholder(name)
         return result
     
-    def dropdown_named_options(self, token):
-        name, options = token
+    def dropdown_named_value(self, token):
+        name, value = token
         result = placeholder(name)
         return result
     
@@ -91,9 +91,9 @@ class QuickTransformer(Transformer):
         result = '[checkbox]'
         return result
     
-    def checkbox_anonymous_caption(self, token):
-        caption = token[0]
-        result = '[checkbox value=' + caption + ']'
+    def checkbox_anonymous_value(self, token):
+        value = token[0]
+        result = '[checkbox value=' + value + ']'
         return result
     
     def checkbox_named(self, token):
@@ -101,24 +101,24 @@ class QuickTransformer(Transformer):
         result = placeholder(name)
         return result
     
-    def checkbox_named_caption(self, token):
-        name, caption = token
+    def checkbox_named_value(self, token):
+        name, value = token
         result = placeholder(name)
         return result
     
     def checkbox_conditional(self, token):
-        name, caption = token
+        name, value = token
         result = placeholder(name)
         return result
     
-    def condition_start(self, token):
+    def conditional_start(self, token):
         " token contains two strings field and conditional expression "
         # ToDo
         field, condition  = token
         result = '[conditional field="' + field + '" condition=' + condition + ']'
         return result
     
-    def condition_end(self, token):
+    def conditional_end(self, token):
         " token is an anonymous token; just replace it "
         result = "[/conditional]"
         return result
@@ -126,10 +126,10 @@ class QuickTransformer(Transformer):
     def default_text(self, token):
         return str(token[0])
                          
-    def dropdown_options(self, token):
+    def dropdown_value(self, token):
         return str(token[0])
                       
-    def caption(self, token):
+    def value(self, token):
         return str(token[0])
 
     def condition(self, token):
@@ -139,10 +139,10 @@ class QuickTransformer(Transformer):
 
 class TokenListTransformer(Transformer):
 
-    def value(self, token):
+    def quicksoap(self, token):
         token_dict = dict()
         for item in token:
-            print(item)
+            # print(item)
             if not item==[]:
                 the_key, the_value = item[0]
                 if not the_key in token_dict:
@@ -161,7 +161,7 @@ class TokenListTransformer(Transformer):
     # def checkbox_chunk(self, token): 
     #   not needed, default is to return the token
     
-    def condition_chunk(self, token):
+    def conditional_chunk(self, token):
         return discard
 
     def string_chunk(self, token):
@@ -187,7 +187,7 @@ class TokenListTransformer(Transformer):
         result = name+"", {'firstpass': firstpass, 'secondpass': secondpass}
         return result
     
-    def dropdown_anonymous_options(self, token):
+    def dropdown_anonymous_value(self, token):
         return discard
     
     def dropdown_named(self, token):
@@ -197,9 +197,9 @@ class TokenListTransformer(Transformer):
         result = name+"", {'firstpass': firstpass, 'secondpass': secondpass}
         return result
     
-    def dropdown_named_options(self, token):
-        name, options = token
-        firstpass = '[select name="' + name + '" value=' + options + ']'
+    def dropdown_named_value(self, token):
+        name, value = token
+        firstpass = '[select name="' + name + '" value=' + value + ']'
         secondpass = '[var name="' + name + '"]'
         result = name+"", {'firstpass': firstpass, 'secondpass': secondpass}
         return result
@@ -207,7 +207,8 @@ class TokenListTransformer(Transformer):
     def checkbox_anonymous(self, token):
         return discard
     
-    def checkbox_anonymous_caption(self, token):
+    def checkbox_anonymous_value(self, token):
+        # print("CHECKBOX ANONYMOUS value: ", token)
         return discard
     
     def checkbox_named(self, token):
@@ -217,36 +218,36 @@ class TokenListTransformer(Transformer):
         result = name+"", {'firstpass': firstpass, 'secondpass': secondpass}
         return result
     
-    def checkbox_named_caption(self, token):
-        name, caption = token
-        firstpass = '[checkbox name="' + name + '" value=' + caption + ']'
+    def checkbox_named_value(self, token):
+        name, value = token
+        firstpass = '[checkbox name="' + name + '" value=' + value + ']'
         secondpass = '[var name="' + name + '"]'
         result = name+"", {'firstpass': firstpass, 'secondpass': secondpass}
         return result
     
     def checkbox_conditional(self, token):
-        name, caption = token
+        name, value = token
         name = name+""
-        caption = caption+""
-        condition = '"(' + name + ").is('" + caption[1:-1] + "')"
-        firstpass = '[checkbox name="' + name + '" value=' + caption + ']' + '[conditional field="' + name + '" condition=' + condition + '"]'
+        value = value+""
+        condition = '"(' + name + ").is('" + value[1:-1] + "')"
+        firstpass = '[checkbox name="' + name + '" value=' + value + ']' + '[conditional field="' + name + '" condition=' + condition + '"]'
         secondpass = '[var name="' + name + '"]'
         result = name, {'firstpass': firstpass, 'secondpass': secondpass}
         return result
     
-    def condition_start(self, token):
+    def conditional_start(self, token):
         return discard
     
-    def condition_end(self, token):
+    def conditional_end(self, token):
         return discard
     
     def default_text(self, token):
         return str(token[0])
                          
-    def dropdown_options(self, token):
+    def dropdown_value(self, token):
         return str(token[0])
                       
-    def caption(self, token):
+    def value(self, token):
         return str(token[0])
                       
     def condition(self, token):
