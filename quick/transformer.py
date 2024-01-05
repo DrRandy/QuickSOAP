@@ -3,14 +3,10 @@ from lark import Transformer
 
 discard = lark.visitors.Discard
 
-def placeholderFromName(name):
+def placeholder(name):
     result = "<<<" + name + ">>>"
     return result
 
-def nameFromPlaceholder(placeholder):
-    result = placeholder.remove("<<<").remove(">>>")
-    return result
-                                              
 def transform(ast):
     output = QuickTransformer().transform(ast)
     # print(output)
@@ -20,14 +16,14 @@ def transform(ast):
 
 def insert_tokens(the_string, the_tokens):
     output = the_string
-    # first pass - replace only the first occurrence of the token
+    # first pass - replace only the first occurrence of each SOAPnote tag
     for the_key, the_value in the_tokens.items():
-        the_token = "<<<" + the_key + ">>>"
-        output = output.replace(the_token, the_value['firstpass'], 1)
-    # second pass - replace all subsequent occurrences of the token
+        the_tag = placeholder(the_key)
+        output = output.replace(the_tag, the_value['firstpass'], 1)
+    # second pass - replace all subsequent occurrences of each SOAPnote tag
     for the_key, the_value in the_tokens.items():
-        the_token = "<<<" + the_key + ">>>"
-        output = output.replace(the_token, the_value['secondpass'])
+        the_tag = placeholder(the_key)
+        output = output.replace(the_tag, the_value['secondpass'])
     return output
     
 
@@ -68,12 +64,12 @@ class QuickTransformer(Transformer):
     
     def textbox_named(self, token):
         name = str(token[0])
-        result = self.placeholderFromName(name)
+        result = placeholder(name)
         return result
     
     def textbox_named_default_text(self, token):
         name, default_text = token
-        result = self.placeholderFromName(name)
+        result = placeholder(name)
         return result
     
     def dropdown_anonymous_options(self, token):
@@ -83,12 +79,12 @@ class QuickTransformer(Transformer):
     
     def dropdown_named(self, token):
         name = token[0]
-        result = self.placeholderFromName(name)
+        result = placeholder(name)
         return result
     
     def dropdown_named_options(self, token):
         name, options = token
-        result = self.placeholderFromName(name)
+        result = placeholder(name)
         return result
     
     def checkbox_anonymous(self, token):
@@ -102,17 +98,17 @@ class QuickTransformer(Transformer):
     
     def checkbox_named(self, token):
         name = token[0]
-        result = self.placeholderFromName(name)
+        result = placeholder(name)
         return result
     
     def checkbox_named_caption(self, token):
         name, caption = token
-        result = self.placeholderFromName(name)
+        result = placeholder(name)
         return result
     
     def checkbox_conditional(self, token):
         name, caption = token
-        result = self.placeholderFromName(name)
+        result = placeholder(name)
         return result
     
     def condition_start(self, token):
