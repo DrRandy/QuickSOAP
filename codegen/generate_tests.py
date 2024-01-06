@@ -1,7 +1,7 @@
 import csv
 
-csvdatafile = "testdocumentdata.csv"
-outputfilename = "../quick/testgeneratedtests.py"
+csvdatafile = "code_gen_data/testdocumentdata.csv"
+outputfilename = "../test/test_generatedtests.py"
 
 thedictionary = {}
 
