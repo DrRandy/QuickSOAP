@@ -50,7 +50,7 @@ def padspaces(n):
     if theLength < 0:
         theLength = 1
 
-with open('codegendata3.csv', newline='') as csvfile:
+with open('code_gen_data/codegendata3.csv', newline='') as csvfile:
     output = ""
     code1output = ""
     code2output = ""

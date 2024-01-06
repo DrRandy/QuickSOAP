@@ -7,3 +7,6 @@ python -m venv venv
 source venv/bin/activate
 python -m pip install lark
 
+# make the script to run the project executable
+chmod +x ./run.sh
+export PATH="/workspaces/QuickSOAP:$PATH"
