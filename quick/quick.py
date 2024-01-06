@@ -10,13 +10,10 @@ def convert(input):
 def main(filename):
     with open(filename) as the_input_file:
         quicktext = the_input_file.read()
-    the_input_file.close()
     soaptext = convert(quicktext)
     with open(filename+".soap", "w") as the_output_file:
         the_output_file.write(soaptext)
-    the_output_file.close()
-    # print(soaptext)
-
+    
 if __name__ == "__main__":
     filename = sys.argv[1]
     main(filename)

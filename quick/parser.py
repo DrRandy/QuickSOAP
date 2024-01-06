@@ -9,5 +9,4 @@ def parse(input):
     """
     quickparser = Lark(quickgrammar, start="quicksoap")
     result = quickparser.parse(input)
-    # print(token_list)
     return result
