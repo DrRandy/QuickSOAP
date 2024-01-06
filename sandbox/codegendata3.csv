@@ -1,0 +1,60 @@
+Term Type,EBNF Term,EBNF Rule,EBNF Alias,FirstPassTransformer Variables,FirstPassTransformer Comments,FirstPassTransformer Code,SecondPassTransformer Variables,SecondPassTransformer Code
+rule,quicksoap,chunk+,,chunks_token,chunks_token is a list of strings,"result = """".join(chunks_token)",chunks_token,"        token_dict = dict()
+        for item in chunks_token:
+            if not item==[]:
+                the_key, the_value = item[0]
+                if not the_key in token_dict:
+                    token_dict[the_key] = the_value
+        result = token_dict"
+rule,chunk,,,,,,,result = token
+rule,|,textbox_chunk,,,,,,
+rule,|,dropdown_chunk,,,,,,
+rule,|,checkbox_chunk,,,,,,
+rule,|,conditional_chunk,,,,,,
+rule,|,string_chunk,,,,,,
+rule,textbox_chunk,,,,,,,result = token
+rule,|,"""`@""",textbox_anonymous,,anonymous token,"result = ""[text]""",,result = discard
+rule,|,"""`@"" ""="" default_text",textbox_anonymous_default_text,default_text_token,default text for the textbox,"result = ""[text default="" + default_text_token + ""]"" ",,result = discard
+rule,|,"""`@"" fieldname",textbox_named,fieldname_token,name of the textbox,result = placeholder(fieldname_token),fieldname_token,"        fieldname_token = str(token[0])
+        firstpass = '[text name=""' + fieldname_token + '""]'
+        secondpass = '[var name=""' + fieldname_token + '""]'
+        result = fieldname_token, {'firstpass': firstpass, 'secondpass': secondpass}"
+rule,|,"""`@"" fieldname ""="" default_text",textbox_named_default_text,"fieldname_token, default_text_token",name and default text for the textbox,result = placeholder(fieldname_token),"fieldname_token, default_text_token","        firstpass = '[text name=""' + fieldname_token + '"" default=' + default_text_token + ']'
+        secondpass = '[var name=""' + fieldname_token + '""]'
+        result = fieldname_token +"""", {'firstpass': firstpass, 'secondpass': secondpass}"
+rule,dropdown_chunk,,,,,,,result = token
+rule,|,"""`^"" ""="" value",dropdown_anonymous_value,value_token,value is a string with options for the dropdown,"result = ""[select value="" + value_token + ""]""",,result = discard
+rule,|,"""`^"" fieldname",dropdown_named,fieldname_token,name of the dropdown,result = placeholder(fieldname_token),fieldname_token,"        fieldname_token = token[0]
+        firstpass = '[select name=""' + fieldname_token + '""]'
+        secondpass = '[var name=""' + fieldname_token + '""]'
+        result = name+"""", {'firstpass': firstpass, 'secondpass': secondpass}"
+rule,|,"""`^"" fieldname ""="" value",dropdown_named_value,"fieldname_token, value_token",name and options for the dropdown,result = placeholder(fieldname_token),"fieldname_token, value_token","        firstpass = '[select name=""' + fieldname_token + '"" value=' + value_token + ']'
+        secondpass = '[var name=""' + fieldname_token + '""]'
+        result = fieldname_token, {'firstpass': firstpass, 'secondpass': secondpass}"
+rule,checkbox_chunk,,,,,,,result = token
+rule,|,"""`+""",checkbox_anonymous,,anonymous token,"result = ""[checkbox]""",,result = discard
+rule,|,"""`+"" ""="" value",checkbox_anonymous_value,value_token,value is a string with options for the checkbox,"result = ""[checkbox value="" + value_token +""]""",,result = discard
+rule,|,"""`+"" fieldname",checkbox_named,fieldname_token,name of the checkbox,result = placeholder(fieldname_token),fieldname_token,"        fieldname_token = token[0]
+        firstpass = '[checkbox name=""' + fieldname_token + '""]'
+        secondpass = '[var name=""' + fieldname_token + '""]'
+        result = fieldname_token+"""", {'firstpass': firstpass, 'secondpass': secondpass}"
+rule,|,"""`+"" fieldname ""="" value",checkbox_named_value,"fieldname_token, value_token",name and options for the checkbox,result = placeholder(fieldname_token),"fieldname_token, value_token","        firstpass = '[checkbox name=""' + fieldname_token + '"" value=' + value_token + ']'
+        secondpass = '[var name=""' + fieldname_token + '""]'
+        result = fieldname_token, {'firstpass': firstpass, 'secondpass': secondpass}"
+rule,|,"""`?+_"" fieldname ""="" value",checkbox_conditional,"fieldname_token, value_token",name and string with single option for the checkbox,result = placeholder(fieldname_token),"fieldname_token, value_token","        condition = '""(' + fieldname_token + "").is('"" + value_token[1:-1] + ""')""
+        firstpass = '[checkbox name=""' + fieldname_token + '"" value=' + value_token + ']' + '[conditional field=""' + fieldname_token + '"" condition=' + condition + '""]'
+        secondpass = '[var fieldname_token=""' + fieldname_token + '""]'
+        result = fieldname_token, {'firstpass': firstpass, 'secondpass': secondpass}"
+rule,conditional_chunk,,,,,,,result = discard
+rule,|,"""`?_"" fieldname "":"" condition",conditional_start,"fieldname_token, condition_token",name and condition for the conditional,"result = '[conditional field=""' + fieldname_token + '"" condition=' + condition_token + ']'",,result = discard
+rule,|,"""`_?""",conditional_end,,anonymous token,"result = ""[/conditional]""",,result = discard
+rule,string_chunk,,,,,,,result = discard
+rule,|,STRING,,,,,,
+rule,|,ESCAPED_STRING,,,,,,
+rule,fieldname,WORD,,,,,fieldname_token,result = fieldname_token
+rule,default_text,ESCAPED_STRING,,,,,default_text_token,result = default_text_token
+rule,value,ESCAPED_STRING,,,,,value_token,result = value_token
+rule,condition,ESCAPED_STRING,,,,,condition_token,result = condition_token
+terminal,STRING,"/[ a-zA-Z0-9(){}\[\];:_,?&%#|@^!*=><\-\'\+\\\/\.\n\t\r\f]+/",,,,,,
+special,%import common.ESCAPED_STRING,,,,,,,
+special,%import common.WORD,,,,,,,

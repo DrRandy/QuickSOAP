@@ -1,0 +1,36 @@
+Term Type,EBNF Term,EBNF Rule,EBNF Alias,FirstPassTransformer Variables,FirstPassTransformer Comments,FirstPassTransformer Code
+rule,quicksoap,chunk+,,chunks_token,chunks_token is a list of strings,"result = """".join(chunks_token)"
+rule,chunk,,,,,
+rule,|,textbox_chunk,,,,
+rule,|,dropdown_chunk,,,,
+rule,|,checkbox_chunk,,,,
+rule,|,conditional_chunk,,,,
+rule,|,string_chunk,,,,
+rule,textbox_chunk,,,,,
+rule,|,"""`@""",textbox_anonymous,,anonymous token,"result = ""[text]"""
+rule,|,"""`@"" ""="" default_text",textbox_anonymous_default_text,default_text_token,default text for the textbox,"result = ""[text default="" + default_text_token + ""]"" "
+rule,|,"""`@"" fieldname",textbox_named,fieldname_token,name of the textbox,result = placeholder(fieldname_token)
+rule,|,"""`@"" fieldname ""="" default_text",textbox_named_default_text,"fieldname_token, default_text_token",name and default text for the textbox,result = placeholder(fieldname_token)
+rule,dropdown_chunk,,,,,
+rule,|,"""`^"" ""="" value",dropdown_anonymous_value,value_token,value is a string with options for the dropdown,"result = ""[select value="" + value_token + ""]"""
+rule,|,"""`^"" fieldname",dropdown_named,fieldname_token,name of the dropdown,result = placeholder(fieldname_token)
+rule,|,"""`^"" fieldname ""="" value",dropdown_named_value,"fieldname_token, value_token",name and options for the dropdown,result = placeholder(fieldname_token)
+rule,checkbox_chunk,,,,,
+rule,|,"""`+""",checkbox_anonymous,,anonymous token,"result = ""[checkbox]"""
+rule,|,"""`+"" ""="" value",checkbox_anonymous_value,value_token,value is a string with options for the checkbox,"result = ""[checkbox value="" + value_token +""]"""
+rule,|,"""`+"" fieldname",checkbox_named,fieldname_token,name of the checkbox,result = placeholder(fieldname_token)
+rule,|,"""`+"" fieldname ""="" value",checkbox_named_value,"fieldname_token, value_token",name and options for the checkbox,result = placeholder(fieldname_token)
+rule,|,"""`?+_"" fieldname ""="" value",checkbox_conditional,"fieldname_token, value_token",name and string with single option for the checkbox,result = placeholder(fieldname_token)
+rule,conditional_chunk,,,,,
+rule,|,"""`?_"" fieldname "":"" condition",conditional_start,"fieldname_token, condition_token",name and condition for the conditional,"result = '[conditional field=""' + fieldname_token + '"" condition=' + condition_token + ']'"
+rule,|,"""`_?""",conditional_end,,anonymous token,"result = ""[/conditional]"""
+rule,string_chunk,,,,,
+rule,|,STRING,,,,
+rule,|,ESCAPED_STRING,,,,
+rule,fieldname,WORD,,,,
+rule,default_text,ESCAPED_STRING,,,,
+rule,value,ESCAPED_STRING,,,,
+rule,condition,ESCAPED_STRING,,,,
+terminal,STRING,"/[ a-zA-Z0-9(){}\[\];:_,?&%#|@^!*=><\-\'\+\\\/\.\n\t\r\f]+/",,,,
+special,%import common.ESCAPED_STRING,,,,,
+special,%import common.WORD,,,,,

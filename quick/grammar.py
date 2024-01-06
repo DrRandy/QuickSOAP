@@ -12,28 +12,30 @@ quickgrammar = r"""
 	textbox_chunk :                          	  
 	    |	  "`@"                     	->  textbox_anonymous
 	    |	  "`@" "=" default_text    	->  textbox_anonymous_default_text
-	    |	  "`@" WORD                	->  textbox_named
-	    |	  "`@" WORD "=" default_text	->  textbox_named_default_text
+	    |	  "`@" fieldname           	->  textbox_named
+	    |	  "`@" fieldname "=" default_text	->  textbox_named_default_text
 	
 	dropdown_chunk :                          	  
 	    |	  "`^" "=" value           	->  dropdown_anonymous_value
-	    |	  "`^" WORD                	->  dropdown_named
-	    |	  "`^" WORD "=" value      	->  dropdown_named_value
+	    |	  "`^" fieldname           	->  dropdown_named
+	    |	  "`^" fieldname "=" value 	->  dropdown_named_value
 	
 	checkbox_chunk :                          	  
 	    |	  "`+"                     	->  checkbox_anonymous
 	    |	  "`+" "=" value           	->  checkbox_anonymous_value
-	    |	  "`+" WORD                	->  checkbox_named
-	    |	  "`+" WORD "=" value      	->  checkbox_named_value
-	    |	  "`?+_" WORD "=" value    	->  checkbox_conditional
+	    |	  "`+" fieldname           	->  checkbox_named
+	    |	  "`+" fieldname "=" value 	->  checkbox_named_value
+	    |	  "`?+_" fieldname "=" value	->  checkbox_conditional
 	
 	conditional_chunk :                          	  
-	    |	  "`?_" WORD ":" condition 	->  conditional_start
+	    |	  "`?_" fieldname ":" condition	->  conditional_start
 	    |	  "`_?"                    	->  conditional_end
 	
 	string_chunk :                          	  
 	    |	  STRING                   	  
 	    |	  ESCAPED_STRING           	  
+	
+	fieldname : WORD                     	  
 	
 	default_text : ESCAPED_STRING           	  
 	

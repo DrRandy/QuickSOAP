@@ -76,5 +76,5 @@ test_template = """
 
 if __name__=="__main__":
     output = gettestdata(csvdatafile)
-    print(output)
+    # print(output)
     
