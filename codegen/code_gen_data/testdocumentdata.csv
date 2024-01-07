@@ -7,11 +7,12 @@ Textbox,TextboxAnonymousPlusBoilerplate,Please enter your name: `@,Please enter 
 Textbox,TextboxAnonymousDefaultTextPlusBoilerplate,"Today is a `@=\""wonderful\"" day!","Today is a [text default=\""wonderful\""] day!",TextboxAnonymousDefaultTextPlusBoilerplate did not parse correctly
 Textbox,TextboxNamedPlusBoilerplate,Your favorite color is `@color.,"Your favorite color is [text name=\""color\""].",TextboxNamedPlusBoilerplate did not parse correctly
 Textbox,TextboxNamedDefaultTextPlusBoilerplate,"Your favorite color is `@color=\""blue\"".","Your favorite color is [text name=\""color\"" default=\""blue\""].",TextboxNamedDefaultTextPlusBoilerplate did not parse correctly
-Dropdown,DropdownAnonymous,"`^=\""option 1|option 2\""","[select value=\""option 1|option 2\""]",DropdownAnonymous did not parse correctly
-Dropdown,DropdownNamed,"`^fieldname=\""option 1|option 2\""","[select name=\""fieldname\"" value=\""option 1|option 2\""]",DropdownNamed did not parse correctly
-Checkbox,CheckboxAnonymous, `+,[checkbox],CheckboxAnonymous did not parse correctly
+Dropdown,DropdownAnonymous,"`^=\""option 1|option 2\""","[select value=\""option 1|option 2\""]",DropdownAnonymousValue did not parse correctly
+Dropdown,DropdownNamedValue,"`^fieldname=\""option 1|option 2\""","[select name=\""fieldname\"" value=\""option 1|option 2\""]",DropdownNamedValue did not parse correctly
+Dropdown,DropdownNamed,"`^fieldname=\""option 1|option 2\"" `^fieldname","[select name=\""fieldname\"" value=\""option 1|option 2\""] [var name=\""fieldname\""]",DropdownNamed did not parse correctly
+Checkbox,CheckboxAnonymous,`+,[checkbox],CheckboxAnonymous did not parse correctly
 Checkbox,CheckboxAnonymousCaption," `+=\""caption for checkbox\""","[checkbox value=\""caption for checkbox\""]",CheckboxAnonymousCaption did not parse correctly
-Checkbox,CheckboxNamed, `+fieldname,"[checkbox name=\""fieldname\""]",CheckboxNamed did not parse correctly
+Checkbox,CheckboxNamed,`+fieldname,"[checkbox name=\""fieldname\""]",CheckboxNamed did not parse correctly
 Checkbox,CheckboxNamedCaption," `+fieldname=\""caption for checkbox\""","[checkbox name=\""fieldname\"" value=\""caption for checkbox\""]",CheckboxNamedCaption did not parse correctly
 Checkbox,CheckboxConditional,"`?+_show=\""show section\"" The section goes here. `_?","[checkbox name=\""show\"" value=\""show section\""][conditional field=\""show\"" condition=\""(show).is('show section')\""] The section goes here. [/conditional]",CheckboxConditional did not parse correctly
 Conditional,ConditionalStart,"`?_cleared:\""(cleared).is('okay to start')\""","[conditional field=\""cleared\"" condition=\""(cleared).is('okay to start')\""]",ConditionalStart did not parse correctly
