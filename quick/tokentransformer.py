@@ -61,7 +61,7 @@ class TokenListTransformer(Transformer):
         fieldname_token = token[0]
         firstpass = '[select name="' + fieldname_token + '"]'
         secondpass = '[var name="' + fieldname_token + '"]'
-        result = name+"", {'firstpass': firstpass, 'secondpass': secondpass}
+        result = fieldname_token, {'firstpass': firstpass, 'secondpass': secondpass}
         return result
 
     def dropdown_named_value(self, token):

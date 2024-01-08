@@ -59,11 +59,17 @@ class TestDropdown(unittest.TestCase):
         input = "`^=\"option 1|option 2\""
         output = "[select value=\"option 1|option 2\"]"
         test_output = convert(input)
-        self.assertEqual(output, test_output, "DropdownAnonymous did not parse correctly")
+        self.assertEqual(output, test_output, "DropdownAnonymousValue did not parse correctly")
 
-    def test_DropdownNamed(self):
+    def test_DropdownNamedValue(self):
         input = "`^fieldname=\"option 1|option 2\""
         output = "[select name=\"fieldname\" value=\"option 1|option 2\"]"
+        test_output = convert(input)
+        self.assertEqual(output, test_output, "DropdownNamedValue did not parse correctly")
+
+    def test_DropdownNamed(self):
+        input = "`^fieldname=\"option 1|option 2\" `^fieldname"
+        output = "[select name=\"fieldname\" value=\"option 1|option 2\"] [var name=\"fieldname\"]"
         test_output = convert(input)
         self.assertEqual(output, test_output, "DropdownNamed did not parse correctly")
 
