@@ -51,10 +51,11 @@ rule,|,"""`_?""",conditional_end,,anonymous token,"result = ""[/conditional]""",
 rule,string_chunk,,,,,,,result = discard
 rule,|,STRING,,,,,,
 rule,|,ESCAPED_STRING,,,,,,
-rule,fieldname,WORD,,,,,fieldname_token,result = fieldname_token
+rule,fieldname,CNAME,,,,,fieldname_token,result = fieldname_token
 rule,default_text,ESCAPED_STRING,,,,,default_text_token,result = default_text_token
 rule,value,ESCAPED_STRING,,,,,value_token,result = value_token
 rule,condition,ESCAPED_STRING,,,,,condition_token,result = condition_token
 terminal,STRING,"/[ a-zA-Z0-9(){}\[\];:_,?&%#|@^!*=><\-\'\+\\\/\.\n\t\r\f]+/",,,,,,
 special,%import common.ESCAPED_STRING,,,,,,,
+special,%import common.CNAME,,,,,,,
 special,%import common.WORD,,,,,,,
