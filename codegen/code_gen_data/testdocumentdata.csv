@@ -1,7 +1,12 @@
 Tested Component Class,Tested Component Type,Quick Input,SOAPnote output,Message for failed test
 Textbox,TextboxAnonymous,`@,[text],TextboxAnonymous did not parse correctly
+Textbox,TextboxAnonymousDuplicate,`@ `@,[text] [text],TextboxAnonymous did not parse correctly
 Textbox,TextboxAnonymousDefaultText,"`@=\""default text\""","[text default=\""default text\""]",TextboxAnonymousDefaultText did not parse correctly
+Textbox,TextboxAnonymousDefaultTextDuplicate,"`@=\""default text\"" `@=\""default text\""","[text default=\""default text\""] [text default=\""default text\""]",TextboxAnonymousDefaultText did not parse correctly
 Textbox,TextboxNamed,`@fieldname,"[text name=\""fieldname\""]",TextboxNamed did not parse correctly
+Textbox,TextboxNamedDuplicate,`@fieldname `@fieldname,"[text name=\""fieldname\""] [text name=\""fieldname\""]",TextboxNamed did not parse correctly
+Textbox,TextboxNamedCname,`@_identifier3,"[text name=\""_identifier3\""]",TextboxNamed did not parse correctly
+Textbox,TextboxNamedCnameDuplicate,`@_identifier3 `@_identifier3,"[text name=\""_identifier3\""] [var name=\""_identifier3\""] ",TextboxNamed did not parse correctly
 Textbox,TextboxNamedDefaultText,"`@fieldname=\""default text\""","[text name=\""fieldname\"" default=\""default text\""]",TextboxNamedDefaultText did not parse correctly
 Textbox,TextboxAnonymousPlusBoilerplate,Please enter your name: `@,Please enter your name: [text],TextboxAnonymousPlusBoilerplate did not parse correctly
 Textbox,TextboxAnonymousDefaultTextPlusBoilerplate,"Today is a `@=\""wonderful\"" day!","Today is a [text default=\""wonderful\""] day!",TextboxAnonymousDefaultTextPlusBoilerplate did not parse correctly
