@@ -2,11 +2,11 @@ Tested Component Class,Tested Component Type,Quick Input,SOAPnote output,Message
 Textbox,TextboxAnonymous,`@,[text],TextboxAnonymous did not parse correctly
 Textbox,TextboxAnonymousDuplicate,`@ `@,[text] [text],TextboxAnonymousDuplicate did not parse correctly
 Textbox,TextboxAnonymousDefaultText,"`@=\""default text\""","[text default=\""default text\""]",TextboxAnonymousDefaultText did not parse correctly
-Textbox,TextboxAnonymousDefaultTextDuplicate,"`@=\""default text\"" `@=\""default text\""","[text default=\""default text\""] [text default=\""default text\""]",TextboxAnonymousDefaultTextDuplicate did not parse correctly
+Textbox,TextboxAnonymousDefaultTextDuplicate,"`@=\""default text\"" `@=\""default text\"" ","[text default=\""default text\""] [text default=\""default text\""] ",TextboxAnonymousDefaultTextDuplicate did not parse correctly
 Textbox,TextboxNamed,`@fieldname,"[text name=\""fieldname\""]",TextboxNamed did not parse correctly
-Textbox,TextboxNamedDuplicate,`@fieldname `@fieldname,"[text name=\""fieldname\""] [var name=\""fieldname\""] ",TextboxNamedDuplicate did not parse correctly
+Textbox,TextboxNamedDuplicate,`@fieldname `@fieldname ,"[text name=\""fieldname\""] [var name=\""fieldname\""] ",TextboxNamedDuplicate did not parse correctly
 Textbox,TextboxNamedCname,`@my_identifier,"[text name=\""my_identifier\""]",TextboxNamedCname did not parse correctly
-Textbox,TextboxNamedCnameDuplicate,`@my_identifier `@my_identifier,"[text name=\""my_identifier\""] [var name=\""my_identifier\""] ",TextboxNamedCnameDuplicate did not parse correctly
+Textbox,TextboxNamedCnameDuplicate,`@my_identifier `@my_identifier ,"[text name=\""my_identifier\""] [var name=\""my_identifier\""] ",TextboxNamedCnameDuplicate did not parse correctly
 Textbox,TextboxNamedDefaultText,"`@fieldname=\""default text\""","[text name=\""fieldname\"" default=\""default text\""]",TextboxNamedDefaultText did not parse correctly
 Textbox,TextboxAnonymousPlusBoilerplate,Please enter your name: `@,Please enter your name: [text],TextboxAnonymousPlusBoilerplate did not parse correctly
 Textbox,TextboxAnonymousDefaultTextPlusBoilerplate,"Today is a `@=\""wonderful\"" day!","Today is a [text default=\""wonderful\""] day!",TextboxAnonymousDefaultTextPlusBoilerplate did not parse correctly
@@ -23,7 +23,7 @@ Checkbox,CheckboxNamed,`+fieldname,"[checkbox name=\""fieldname\""]",CheckboxNam
 Checkbox,CheckboxNamedCaption," `+fieldname=\""caption for checkbox\""","[checkbox name=\""fieldname\"" value=\""caption for checkbox\""]",CheckboxNamedCaption did not parse correctly
 Checkbox,CheckboxNamedCname,`+_my_checkbox,"[checkbox name=\""_my_checkbox\""]",CheckboxNamedCname did not parse correctly
 Checkbox,CheckboxNamedCnameCaption," `+_my_checkbox=\""caption for checkbox\""","[checkbox name=\""_my_checkbox\"" value=\""caption for checkbox\""]",CheckboxNamedCnameCaption did not parse correctly
-Checkbox,CheckboxNamedCnameDuplicate,`+_my_checkbox `+_my_checkbox,"[checkbox name=\""_my_checkbox\""] [var name=\""_my_checkbox\""] ",CheckboxNamedCnameDuplicate did not parse correctly
+Checkbox,CheckboxNamedCnameDuplicate,`+_my_checkbox `+_my_checkbox ,"[checkbox name=\""_my_checkbox\""] [var name=\""_my_checkbox\""] ",CheckboxNamedCnameDuplicate did not parse correctly
 Checkbox,CheckboxNamedCnameCaptionDuplicate," `+_my_checkbox=\""caption for checkbox\"" `+_my_checkbox ","[checkbox name=\""_my_checkbox\"" value=\""caption for checkbox\""] [var name=\""_my_checkbox\""] ",CheckboxNamedCnameCaptionDuplicate did not parse correctly
 Checkbox,CheckboxConditional,"`?+_show=\""show section\"" The section goes here. `_?","[checkbox name=\""show\"" value=\""show section\""][conditional field=\""show\"" condition=\""(show).is('show section')\""] The section goes here. [/conditional]",CheckboxConditional did not parse correctly
 Checkbox,CheckboxCnameConditional,"`?+__my_checkbox=\""show section\"" The section goes here. `_? ","[checkbox name=\""_my_checkbox\"" value=\""show section\""][conditional field=\""_my_checkbox\"" condition=\""(_my_checkbox).is('show section')\""] The section goes here. [/conditional] ",CheckboxCnameConditional did not parse correctly

@@ -15,7 +15,7 @@ class TestTextbox(unittest.TestCase):
         input = "`@ `@"
         output = "[text] [text]"
         test_output = convert(input)
-        self.assertEqual(output, test_output, "TextboxAnonymous did not parse correctly")
+        self.assertEqual(output, test_output, "TextboxAnonymousDuplicate did not parse correctly")
 
     def test_TextboxAnonymousDefaultText(self):
         input = "`@=\"default text\""
@@ -24,10 +24,10 @@ class TestTextbox(unittest.TestCase):
         self.assertEqual(output, test_output, "TextboxAnonymousDefaultText did not parse correctly")
 
     def test_TextboxAnonymousDefaultTextDuplicate(self):
-        input = "`@=\"default text\" `@=\"default text\""
-        output = "[text default=\"default text\"] [text default=\"default text\"]"
+        input = "`@=\"default text\" `@=\"default text\" "
+        output = "[text default=\"default text\"] [text default=\"default text\"] "
         test_output = convert(input)
-        self.assertEqual(output, test_output, "TextboxAnonymousDefaultText did not parse correctly")
+        self.assertEqual(output, test_output, "TextboxAnonymousDefaultTextDuplicate did not parse correctly")
 
     def test_TextboxNamed(self):
         input = "`@fieldname"
@@ -39,19 +39,19 @@ class TestTextbox(unittest.TestCase):
         input = "`@fieldname `@fieldname "
         output = "[text name=\"fieldname\"] [var name=\"fieldname\"] "
         test_output = convert(input)
-        self.assertEqual(output, test_output, "TextboxNamed did not parse correctly")
+        self.assertEqual(output, test_output, "TextboxNamedDuplicate did not parse correctly")
 
     def test_TextboxNamedCname(self):
         input = "`@my_identifier"
         output = "[text name=\"my_identifier\"]"
         test_output = convert(input)
-        self.assertEqual(output, test_output, "TextboxNamed did not parse correctly")
+        self.assertEqual(output, test_output, "TextboxNamedCname did not parse correctly")
 
     def test_TextboxNamedCnameDuplicate(self):
         input = "`@my_identifier `@my_identifier "
         output = "[text name=\"my_identifier\"] [var name=\"my_identifier\"] "
         test_output = convert(input)
-        self.assertEqual(output, test_output, "TextboxNamed did not parse correctly")
+        self.assertEqual(output, test_output, "TextboxNamedCnameDuplicate did not parse correctly")
 
     def test_TextboxNamedDefaultText(self):
         input = "`@fieldname=\"default text\""
@@ -89,19 +89,19 @@ class TestDropdown(unittest.TestCase):
         input = "`^=\"option 1|option 2\""
         output = "[select value=\"option 1|option 2\"]"
         test_output = convert(input)
-        self.assertEqual(output, test_output, "DropdownAnonymousValue did not parse correctly")
+        self.assertEqual(output, test_output, "DropdownAnonymous did not parse correctly")
 
     def test_DropdownNamedCnameValue(self):
         input = "`^_choice_one=\"option 1|option 2\""
         output = "[select name=\"_choice_one\" value=\"option 1|option 2\"]"
         test_output = convert(input)
-        self.assertEqual(output, test_output, "DropdownNamedValue did not parse correctly")
+        self.assertEqual(output, test_output, "DropdownNamedCnameValue did not parse correctly")
 
     def test_DropdownNamedCname(self):
         input = "`^_choice_one=\"option 1|option 2\" `^_choice_one "
         output = "[select name=\"_choice_one\" value=\"option 1|option 2\"] [var name=\"_choice_one\"] "
         test_output = convert(input)
-        self.assertEqual(output, test_output, "DropdownNamed did not parse correctly")
+        self.assertEqual(output, test_output, "DropdownNamedCname did not parse correctly")
 
     def test_DropdownNamedValue(self):
         input = "`^fieldname=\"option 1|option 2\""
@@ -145,25 +145,25 @@ class TestCheckbox(unittest.TestCase):
         input = "`+_my_checkbox"
         output = "[checkbox name=\"_my_checkbox\"]"
         test_output = convert(input)
-        self.assertEqual(output, test_output, "CheckboxNamed did not parse correctly")
+        self.assertEqual(output, test_output, "CheckboxNamedCname did not parse correctly")
 
     def test_CheckboxNamedCnameCaption(self):
         input = "`+_my_checkbox=\"caption for checkbox\""
         output = "[checkbox name=\"_my_checkbox\" value=\"caption for checkbox\"]"
         test_output = convert(input)
-        self.assertEqual(output, test_output, "CheckboxNamedCaption did not parse correctly")
+        self.assertEqual(output, test_output, "CheckboxNamedCnameCaption did not parse correctly")
 
     def test_CheckboxNamedCnameDuplicate(self):
         input = "`+_my_checkbox `+_my_checkbox "
         output = "[checkbox name=\"_my_checkbox\"] [var name=\"_my_checkbox\"] "
         test_output = convert(input)
-        self.assertEqual(output, test_output, "CheckboxNamed did not parse correctly")
+        self.assertEqual(output, test_output, "CheckboxNamedCnameDuplicate did not parse correctly")
 
     def test_CheckboxNamedCnameCaptionDuplicate(self):
         input = "`+_my_checkbox=\"caption for checkbox\" `+_my_checkbox "
         output = "[checkbox name=\"_my_checkbox\" value=\"caption for checkbox\"] [var name=\"_my_checkbox\"] "
         test_output = convert(input)
-        self.assertEqual(output, test_output, "CheckboxNamedCaption did not parse correctly")
+        self.assertEqual(output, test_output, "CheckboxNamedCnameCaptionDuplicate did not parse correctly")
 
     def test_CheckboxConditional(self):
         input = "`?+_show=\"show section\" The section goes here. `_?"
@@ -175,7 +175,7 @@ class TestCheckbox(unittest.TestCase):
         input = "`?+__my_checkbox=\"show section\" The section goes here. `_? "
         output = "[checkbox name=\"_my_checkbox\" value=\"show section\"][conditional field=\"_my_checkbox\" condition=\"(_my_checkbox).is('show section')\"] The section goes here. [/conditional] "
         test_output = convert(input)
-        self.assertEqual(output, test_output, "CheckboxConditional did not parse correctly")
+        self.assertEqual(output, test_output, "CheckboxCnameConditional did not parse correctly")
 
 class TestConditional(unittest.TestCase):
 
