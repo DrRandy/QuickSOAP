@@ -11,15 +11,45 @@ class TestTextbox(unittest.TestCase):
         test_output = convert(input)
         self.assertEqual(output, test_output, "TextboxAnonymous did not parse correctly")
 
+    def test_TextboxAnonymousDuplicate(self):
+        input = "`@ `@"
+        output = "[text] [text]"
+        test_output = convert(input)
+        self.assertEqual(output, test_output, "TextboxAnonymous did not parse correctly")
+
     def test_TextboxAnonymousDefaultText(self):
         input = "`@=\"default text\""
         output = "[text default=\"default text\"]"
         test_output = convert(input)
         self.assertEqual(output, test_output, "TextboxAnonymousDefaultText did not parse correctly")
 
+    def test_TextboxAnonymousDefaultTextDuplicate(self):
+        input = "`@=\"default text\" `@=\"default text\""
+        output = "[text default=\"default text\"] [text default=\"default text\"]"
+        test_output = convert(input)
+        self.assertEqual(output, test_output, "TextboxAnonymousDefaultText did not parse correctly")
+
     def test_TextboxNamed(self):
         input = "`@fieldname"
         output = "[text name=\"fieldname\"]"
+        test_output = convert(input)
+        self.assertEqual(output, test_output, "TextboxNamed did not parse correctly")
+
+    def test_TextboxNamedDuplicate(self):
+        input = "`@fieldname `@fieldname"
+        output = "[text name=\"fieldname\"] [var name=\"fieldname\"]"
+        test_output = convert(input)
+        self.assertEqual(output, test_output, "TextboxNamed did not parse correctly")
+
+    def test_TextboxNamedCname(self):
+        input = "`@_identifier3"
+        output = "[text name=\"_identifier3\"]"
+        test_output = convert(input)
+        self.assertEqual(output, test_output, "TextboxNamed did not parse correctly")
+
+    def test_TextboxNamedCnameDuplicate(self):
+        input = "`@_identifier3 `@_identifier3"
+        output = "[text name=\"_identifier3\"] [var name=\"_identifier3\"]"
         test_output = convert(input)
         self.assertEqual(output, test_output, "TextboxNamed did not parse correctly")
 

@@ -35,7 +35,7 @@ quickgrammar = r"""
 	    |	  STRING                   	  
 	    |	  ESCAPED_STRING           	  
 	
-	fieldname : WORD                     	  
+	fieldname : CNAME                    	  
 	
 	default_text : ESCAPED_STRING           	  
 	
@@ -46,6 +46,8 @@ quickgrammar = r"""
 	STRING : /[ a-zA-Z0-9(){}\[\];:_,?&%#|@^!*=><\-\'\+\\\/\.\n\t\r\f]+/	  
 	
 	%import common.ESCAPED_STRING                           	  
+	
+	%import common.CNAME                           	  
 	
 	%import common.WORD                           	  
 
