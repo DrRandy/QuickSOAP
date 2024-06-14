@@ -1,0 +1,113 @@
+last name = [text name="lastname"]
+first name = [text name="firstname"]
+date of birth = [text name="dob"]
+date of visit = [text name="dov"]
+employee ID number = [text name="eid"]
+job = [text name="job"]
+location = [text name="location"]
+start date = [text name="startdate"]
+employer = [text name="employer"]
+
+Choose which elements of the physical exam to include in this note:
+Vitals    [checkbox name="exam_Vitals" value="include"]
+General Appearance    [checkbox name="exam_GeneralAppearance" value="include"]
+HEENT    [checkbox name="exam_HEENT" value="include"]
+Neck    [checkbox name="exam_Neck" value="include"]
+Back    [checkbox name="exam_Back" value="include"]
+Neuro    [checkbox name="exam_Neuro" value="include"]
+
+[var name="lastname"], [var name="firstname"]
+DOB: [var name="dob"]
+DOV: [var name="dov"]
+
+
+=========================
+WORKERS COMP INITIAL VISIT
+=========================
+
+---------------------
+SUBJECTIVE
+---------------------
+HISTORY OF THE PRESENT ILLNESS
+subsection content goes here
+
+
+
+---------------------
+OBJECTIVE
+---------------------
+[conditional field="exam_Vitals" condition="(exam_Vitals).is('include')"] 
+VITALS
+[text default="Height   Weight   "] 
+[/conditional][conditional field="exam_GeneralAppearance" condition="(exam_GeneralAppearance).is('include')"] 
+GENERAL APPEARANCE
+[textarea fillable="true"]Employee is a ******comfortable-appearing ****** sitting up ******in no apparent distress; changes position (sitting/standing/lying/mounting-dismounting exam table) ******without difficulty or assistance.[/textarea]
+
+[/conditional][conditional field="exam_HEENT" condition="(exam_HEENT).is('include')"] 
+HEENT
+{}
+[/conditional][conditional field="exam_Neck" condition="(exam_Neck).is('include')"] 
+NECK
+Neck Inspection: [select name="neckScar" value="not examined|no scar|scar noted"] [conditional field="neckScar" condition="(neckScar).is('scar noted')"] [text] [/conditional]
+Neck ROM: [select name="neckROM" value="FROM|decreased ROM"] [conditional field="neckROM" condition="(neckROM).isNot('FROM')"]
+turning right: [select value="|slightly decreased|moderately decreased|markedly decreased"] [select value="|exacerbates pain|ameliorates pain"] 
+turning left: [select value="|slightly decreased|moderately decreased|markedly decreased"] [select value="|exacerbates pain|ameliorates pain"] 
+tilting right: [select value="|slightly decreased|moderately decreased|markedly decreased"] [select value="|exacerbates pain|ameliorates pain"] 
+tilting left: [select value="|slightly decreased|moderately decreased|markedly decreased"] [select value="|exacerbates pain|ameliorates pain"] 
+extension: [select value="|slightly decreased|moderately decreased|markedly decreased"] [select value="|exacerbates pain|ameliorates pain"] 
+flexion: [select value="|slightly decreased|moderately decreased|markedly decreased"] [select value="|exacerbates pain|ameliorates pain"] [/conditional]
+Neck Tenderness: [select name="neckTenderness" value="not tested|no tenderness|tenderness is noted"] [conditional field="neckTenderness" condition="(neckTenderness).is('tenderness is noted')"] [text] [/conditional]
+Neck Spasm: [select name="neckSpasm" value="not tested|no spasm|spasm is noted"] [conditional field="neckSpasm" condition="(neckSpasm).is('spasm is noted')"] [select value="| on the right| on the left| bilaterally"] [/conditional]
+
+[/conditional][conditional field="exam_Back" condition="(exam_Back).is('include')"] 
+BACK
+Back Inspection: [select name="backScar" value="not examined|no scar|scar noted"] [conditional field="backScar" condition="(backScar).is('scar noted')"] [text] [/conditional]
+Back ROM: [select name="backROM" value="FROM|decreased ROM"] [conditional field="backROM" condition="(backROM).isNot('FROM')"]
+turning right: [select value="|slightly decreased|moderately decreased|markedly decreased"] [select value="|exacerbates pain|ameliorates pain"] 
+turning left: [select value="|slightly decreased|moderately decreased|markedly decreased"] [select value="|exacerbates pain|ameliorates pain"] 
+tilting right: [select value="|slightly decreased|moderately decreased|markedly decreased"] [select value="|exacerbates pain|ameliorates pain"] 
+tilting left: [select value="|slightly decreased|moderately decreased|markedly decreased"] [select value="|exacerbates pain|ameliorates pain"] 
+extension: [select value="|slightly decreased|moderately decreased|markedly decreased"] [select value="|exacerbates pain|ameliorates pain"] 
+flexion: [select value="|slightly decreased|moderately decreased|markedly decreased"] [select value="|exacerbates pain|ameliorates pain"] [/conditional]
+Back Tenderness: [select name="backTenderness" value="not tested|no tenderness|tenderness is noted"] [conditional field="backTenderness" condition="(backTenderness).is('tenderness is noted')"] [text] [/conditional]
+Back Spasm: [select name="backSpasm" value="not tested|no spasm|spasm is noted"] [conditional field="backSpasm" condition="(backSpasm).is('spasm is noted')"] [select value="| on the right| on the left| bilaterally"] [text] [/conditional]
+Straight Leg Raise: [select name="straightLegRaise" value="not tested|normal bilaterally|abnormal: "] [conditional field="straightLegRaise" condition="(straightLegRaise).is('abnormal: ')"] 
+Right side is [select value="normal|negative but reproduces pain|not tolerated due to pain"] [text] 
+Left side is [select value="normal|negative but reproduces pain|not tolerated due to pain"] [text] [/conditional]
+
+[/conditional][conditional field="exam_Neuro" condition="(exam_Neuro).is('include')"] 
+NEURO
+[checkbox name="showUpperExt" value="Upper Extremities"][conditional field="showUpperExt" condition="(showUpperExt).is('Upper Extremities')"]
+Reflexes (biceps, brachioradialis) [select value="not tested|1+ and symmetrical bilaterally|2+ and symmetrical bilaterally|3+ and symmetrical bilaterally|asymmetric"] [text] 
+Strength (all major muscle groups, hand grip, digital opposition)[select value="not tested|5/5 bilaterally|abnormal"] [text] [/conditional][checkbox name="showLowerExt" value="Lower Extremities"][conditional field="showLowerExt" condition="(showLowerExt).is('Lower Extremities')"]
+Reflexes (KJ, AJ) [select value="not tested|1+ and symmetrical bilaterally|2+ and symmetrical bilaterally|3+ and symmetrical bilaterally|asymmetric"] [text] 
+Strength (all major muscle groups)[select value="not tested|5/5 bilaterally|abnormal"] [text] [/conditional][checkbox name="showGait" value="Gait"][conditional field="showGait" condition="(showGait).is('Gait')"] [select name="gait" value="normal|abnormal"] [conditional field="gait" condition="(gait).is('abnormal')"][checkbox value="antalgic favoring right|antalgic favoring left|wide-based|shuffling"] [text]  [/conditional] [/conditional]
+
+[/conditional]
+
+---------------------
+ASSESSMENT
+---------------------
+DIAGNOSES
+subsection content goes here
+
+DISCUSSION
+subsection content goes here
+
+
+
+---------------------
+PLAN
+---------------------
+RETURN TO WORK
+subsection content goes here
+
+TREATMENT
+subsection content goes here
+
+REFERRALS
+subsection content goes here
+
+FOLLOW-UP
+subsection content goes here
+
