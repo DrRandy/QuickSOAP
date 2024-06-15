@@ -25,24 +25,24 @@ meta_data_definition = {
 
 quick_neck_exam = """Neck Inspection: `^neckScar="not examined|no scar|scar noted" `?_neckScar:"(neckScar).is('scar noted')" `@ `_?
 Neck ROM: `^neckROM="FROM|decreased ROM" `?_neckROM:"(neckROM).isNot('FROM')"
-turning right: `^="|slightly decreased|moderately decreased|markedly decreased" `^="|exacerbates pain|ameliorates pain" 
-turning left: `^="|slightly decreased|moderately decreased|markedly decreased" `^="|exacerbates pain|ameliorates pain" 
-tilting right: `^="|slightly decreased|moderately decreased|markedly decreased" `^="|exacerbates pain|ameliorates pain" 
-tilting left: `^="|slightly decreased|moderately decreased|markedly decreased" `^="|exacerbates pain|ameliorates pain" 
-extension: `^="|slightly decreased|moderately decreased|markedly decreased" `^="|exacerbates pain|ameliorates pain" 
-flexion: `^="|slightly decreased|moderately decreased|markedly decreased" `^="|exacerbates pain|ameliorates pain" `_?
+turning right: `^="|normal|slightly decreased|moderately decreased|markedly decreased" `^="|exacerbates pain|ameliorates pain" 
+turning left: `^="|normal|slightly decreased|moderately decreased|markedly decreased" `^="|exacerbates pain|ameliorates pain" 
+tilting right: `^="|normal|slightly decreased|moderately decreased|markedly decreased" `^="|exacerbates pain|ameliorates pain" 
+tilting left: `^="|normal|slightly decreased|moderately decreased|markedly decreased" `^="|exacerbates pain|ameliorates pain" 
+extension: `^="|normal|slightly decreased|moderately decreased|markedly decreased" `^="|exacerbates pain|ameliorates pain" 
+flexion: `^="|normal|slightly decreased|moderately decreased|markedly decreased" `^="|exacerbates pain|ameliorates pain" `_?
 Neck Tenderness: `^neckTenderness="not tested|no tenderness|tenderness is noted" `?_neckTenderness:"(neckTenderness).is('tenderness is noted')" `@ `_?
 Neck Spasm: `^neckSpasm="not tested|no spasm|spasm is noted" `?_neckSpasm:"(neckSpasm).is('spasm is noted')" `^="| on the right| on the left| bilaterally" `_?
 """
 
 quick_back_exam = """Back Inspection: `^backScar="not examined|no scar|scar noted" `?_backScar:"(backScar).is('scar noted')" `@ `_?
 Back ROM: `^backROM="FROM|decreased ROM" `?_backROM:"(backROM).isNot('FROM')"
-turning right: `^="|slightly decreased|moderately decreased|markedly decreased" `^="|exacerbates pain|ameliorates pain" 
-turning left: `^="|slightly decreased|moderately decreased|markedly decreased" `^="|exacerbates pain|ameliorates pain" 
-tilting right: `^="|slightly decreased|moderately decreased|markedly decreased" `^="|exacerbates pain|ameliorates pain" 
-tilting left: `^="|slightly decreased|moderately decreased|markedly decreased" `^="|exacerbates pain|ameliorates pain" 
-extension: `^="|slightly decreased|moderately decreased|markedly decreased" `^="|exacerbates pain|ameliorates pain" 
-flexion: `^="|slightly decreased|moderately decreased|markedly decreased" `^="|exacerbates pain|ameliorates pain" `_?
+turning right: `^="|normal|slightly decreased|moderately decreased|markedly decreased" `^="|exacerbates pain|ameliorates pain" 
+turning left: `^="|normal|slightly decreased|moderately decreased|markedly decreased" `^="|exacerbates pain|ameliorates pain" 
+tilting right: `^="|normal|slightly decreased|moderately decreased|markedly decreased" `^="|exacerbates pain|ameliorates pain" 
+tilting left: `^="|normal|slightly decreased|moderately decreased|markedly decreased" `^="|exacerbates pain|ameliorates pain" 
+extension: `^="|normal|slightly decreased|moderately decreased|markedly decreased" `^="|exacerbates pain|ameliorates pain" 
+flexion: `^="|normal|slightly decreased|moderately decreased|markedly decreased" `^="|exacerbates pain|ameliorates pain" `_?
 Back Tenderness: `^backTenderness="not tested|no tenderness|tenderness is noted" `?_backTenderness:"(backTenderness).is('tenderness is noted')" `@ `_?
 Back Spasm: `^backSpasm="not tested|no spasm|spasm is noted" `?_backSpasm:"(backSpasm).is('spasm is noted')" `^="| on the right| on the left| bilaterally" `@ `_?
 Straight Leg Raise: `^straightLegRaise="not tested|normal bilaterally|abnormal: " `?_straightLegRaise:"(straightLegRaise).is('abnormal: ')" 
@@ -59,7 +59,8 @@ Strength (all major muscle groups)`^="not tested|5/5 bilaterally|abnormal" `@ `_
 
 physical_exam_definition = {
 		"Vitals": """`@="Height   Weight   " """,
-		"General Appearance": """[textarea fillable="true"]Employee is a ******comfortable-appearing ****** sitting up ******in no apparent distress; changes position (sitting/standing/lying/mounting-dismounting exam table) ******without difficulty or assistance.[/textarea]
+		"General Appearance": """
+Employee is a `^="|comfortable|uncomfortable"-appearing `^="|young|middle-aged|older|elderly" ******`^="|man|woman" `^="|slouching to the right|slouching to the left|sitting up|lying" `^="|in no apparent distress|appearing distraught|appearing short of breath"; changes position () Employee is a `^="|comfortable|uncomfortable"-appearing `^="|young|middle-aged|older|elderly" ******`^="|man|woman" `^="|slouching to the right|slouching to the left|sitting up|lying" `^="|in no apparent distress|appearing distraught|appearing short of breath"; changes position (sitting/standing/lying/mounting and dismounting the exam table)  `^="|without difficulty or assistance|with difficulty but without assistance|with difficulty and needing assistance|requesting assistance but supporting own weight".[textarea][/textarea]
 """,
 		"HEENT": {
 		},
